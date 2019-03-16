@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+    <script>
+      var hawbRowIndexgs = <?!= JSON.stringify(data) ?>;
+      //console.log(hawbRowIndexgs)
+    </script>
+ <title>Hawb Entry</title>
+ <style>
+   body {
+       background-color: #c3f4f0;
+   }
+   td {
+     padding: 5px;
+     border: 1px solid grey;
+   }
+   .alertdate, .pdate, .ddate {
+     width: 130px;
+   }
+   .asses {
+    width: 15px;
+   }
+   .times{
+     margin-top: 3px;
+     width: 65px;
+     margin-right: 3px;
+   }
+   #delaci, #puaci, #wtime, #shipmethod {
+    width: 30px;
+    margin-left: 5px;
+   }
+   #shipmethod {
+    width: 50px;
+    margin-left: 5px;
+   }
+   .hide {
+     display: none;
+   }
+
+ </style>
+
+</head>
+<body>
+  <div class="body">
+    <div id="alert">
+      <table>
+        <tr><th>Select Alert Date</th><th>Alert Date</th><th>Alert Time</th><th>Ship Method</th></tr>
+        <tr><td><input type="date" id="alertdate" onchange="selectChange(this.value, 'alertdt')"></td><td><input type="text" id="alertdt" value=""></td></td><td><input type="text" id="alerttime" value=""></td>
+        <td><label for="shipmethod">Shipment Method</label><input type="text" name="shipmethod" id = 'shipmethod' value="Ground">
+          <select name="shipmethodsel" id="shipmethodsel"  onchange="selectChange(this.options[this.selectedIndex].value, 'shipmethod')">
+            <option value="Ground">Select one</option>
+            <option value="Ground">Ground</option>
+            <option value="Air">Air</option>
+            <option value="Ocean">Ocean</option>
+         </select></td></tr>
+
+      </table>
+    <hr>
+    </div>
+    <div id="type" class="type">
+      <table><tr><td>
+      <label for="service">Service LEVEL</label>
+      <select id="service" onchange="selectChange(this.options[this.selectedIndex].value, 'srvlevel')">
+        <option value="">Select One</option>
+        <option value="Economy">Economy</option>
+        <option value="Economy(3Day)">Economy(3Day)</option>
+        <option value="Same Day">Same Day</option>
+        <option value="Standard">Standard</option>
+        <option value="Standard(2Day)">Standard(2Day)</option>
+        <option value="Overnight AM">Overnight AM</option>
+        <option value="Overnight PM">Overnight PM</option>
+        <option value="Deferred(4-5 days)">Deferred(4-5 days)</option>
+        <option value="Other">Other</option>
+      </select>
+        <input type="text" id="srvlevel" value = "" readonly>
+      </td>
+
+    <td>
+        <label for="type">Service TYPE</label>
+        <select id="type" onchange="selectChange(this.options[this.selectedIndex].value, 'srvtype')">
+          <option value="">Select One</option>
+          <option value="P">Pickup</option>
+          <option value="D">Delivery</option>
+          <option value="X">Xfer</option>
+          <option value="PD">Pickup & Delivery</option>
+        </select>
+        <input type="text" id="srvtype" value = "" readonly>
+    </td>
+    </tr>
+    </table>
+    <hr>
+    </div>
+    <div id="pddiv" >
+
+      <table id="pddate" >
+          <tr><th id="pdth" class= "hide">Pickup Date Time</th><th id="ddth" class= "hide">Delivery Date Time</th></tr>
+          <tr>
+        <div id="pdatediv" ><td id="pdtd" class= "hide"><input type="date" id="pdate" onchange="selectChange(this.value, 'pdate')">
+          <input type="radio" name="puonby"  value="By" onchange="selectChange(this.value, 'ponbydisp')">By
+          <input type="radio" name="puonby"  value="On" onchange="selectChange(this.value, 'ponbydisp')">On<input type="text" id="ponbydisp" value="">
+          <br><input class="times" type="text" id="pfrom" value = ""> TO <input type="text" id="pto" class="times" value = ""><br>
+          Pickup Zip:<input type="text" id= "puzip" class="times" value = "" onKeyup= "fillAci(this.value, 'puaci', 'pucity')" >City:<input type="text" id= "pucity" class="times" value = "">ACI:<input type="text" id="puaci" value = ""readonly></td></div>
+
+          <div id="ddatediv" class= "hide"><td id="ddtd" class= "hide"><input type="date" id="ddate" onchange="selectChange(this.value, 'ddate')">
+            <input type="radio" name="delonby"  value="By" onchange="selectChange(this.value, 'donbydisp')">By
+            <input type="radio" name="delonby"  value="On" onchange="selectChange(this.value, 'donbydisp')">On<input type="text" id="donbydisp" value="">
+            <br><input type="text" class="times" id="dfrom" value = ""> TO <input type="text" id="dto" class="times" value = ""><br>
+            Delivery Zip:<input type="text" id= "delzip" class="times" value = "" onKeyup= "fillAci(this.value, 'delaci', 'delcity')" >City:<input type="text" id= "delcity" class="times" value = "">ACI:<input type="text" id="delaci" value = ""readonly></td></div>
+
+            <td>
+              <label for="billwt">Billable WT: </label>
+              <input type="text" id="billwt" name="billwt" class="times" value = "">
+            </td>
+        </tr>
+      </table>
+    </div>
+    <hr>
+    <div id="assesdiv">
+      <table id="asses">
+        <tr><th>Assessorials</th></tr>
+        <tr>
+          <td><input class='asses' type="checkbox" id="lg">Liftgate</td>
+          <td><input class='asses' type="checkbox" id="spd">Special</td>
+          <td><input class='asses' type="checkbox" id="ind">Inside</td>
+          <td><input class='asses' type="checkbox" id="upk">UnPack</td>
+          <td><input class='asses' type="checkbox" id="pac">Pack</td>
+          <td><input class='asses' type="checkbox" id="2man">2 Man</td>
+          <td><input class='asses' type="checkbox" id="wg">White Glove</td>
+          <td><input class='asses' type="checkbox" id="jack">Pallet Jack</td>
+        </tr></table>
+
+        <table><tr>
+            <td><input class='asses' type="checkbox" id="call" value = "">Call to Schedule</td>
+            <td><input class='asses' type="checkbox" id="res" value = "">Residence</td>
+            <td><input class='asses' type="checkbox" id="atm" value = "">Attempt</td>
+            <td><label for="waittime">Select Wait Time</label><select name="waittime" id="waitime" onchange="selectChange(this.options[this.selectedIndex].value, 'wtime')">
+                <option value="0">0</option>
+                <option value="15">15</option><option value="30">30</option>
+                <option value="45">45</option><option value="60">1 hr</option>
+                <option value="75">75</option><option value="90">90</option>
+                <option value="105">105</option><option value="120">2 hr</option>
+                <option value="135">135</option><option value="150">150</option>
+                <option value="165">165</option><option value="180">3 hr</option>
+                <option value="195">195</option><option value="210">210</option>
+                <option value="225">225</option><option value="240">4 hr</option>
+                <option value="270">4hr 30m</option><option value="300">5hr</option>
+                <option value="330">5hr 30m</option><option value="400">6hr</option>
+              </select><input type="text" id= "wtime" value='0' value = "" readonly >Minutes</td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+      <div id="recoverydiv" class= "hide" >
+        <label for="recoverysel">Choose Recover From</label>
+        <select name="recoverysel" id="recoverysel"  onchange="selectChange(this.options[this.selectedIndex].value, 'recovery')">
+          <option value="">Select One</option>
+          <option value="Forward Air">Forward Air</option>
+          <option value="Land Air">Land Air</option>
+          <option value="American Line Haul">American Line Haul</option>
+          <option value="JIT">JIT</option>
+          <option value="Act2">ACT2</option>
+          <option value="Sterling">Sterling</option>
+          <option value="Southwest">Southwest</option>
+          <option value="American Airlines">American Airlines</option>
+          <option value="Delta">Delta</option>
+          <option value="United">United</option>
+        </select>
+        <input type="text" id="recovery" value = "">
+        <label for="recoverybill">Recovery Bill #</label>
+        <input type="text" id="recoverybill" value = "">
+        <hr>
+      </div>
+    <div id="dropdiv" class= "hide">
+      <label for="dropsel">Choose Drop To</label>
+      <select name="dropsel" id="dropsel"  onchange="selectChange(this.options[this.selectedIndex].value, 'drop')">
+        <option value="">Select One</option>
+        <option value="Forward Air">Forward Air</option>
+        <option value="Land Air">Land Air</option>
+        <option value="American Line Haul">American Line Haul</option>
+        <option value="JIT">JIT</option>
+        <option value="Act2">ACT2</option>
+        <option value="Sterling">Sterling</option>
+        <option value="Southwest">Southwest</option>
+        <option value="American Airlines">American Airlines</option>
+        <option value="Delta">Delta</option>
+        <option value="United">United</option>
+      </select>
+      <input type="text" id="drop" value = "">
+      <label for="dropbill">Drop Bill #</label>
+      <input type="text" id="dropbill" value = "">
+      <hr>
+    </div>
+  <div id="cartagediv">
+    <label for="cartagesel">Cartage Contractor</label>
+    <select name="cartagesel" id="cartagesel"  onchange="selectChange(this.options[this.selectedIndex].value, 'cartage')">
+      <option value="">Select One</option>
+      <option value="LAX">LAX lgl</option>
+      <option value="Bella">Bella</option>
+      <option value="Reserve">Reserve</option>
+      <option value="AllTime">All Time</option>
+      <option value="Metro">Metro</option>
+      <option value="Ventura">Ventura Hwy</option>
+      <option value="Orange">Orange Courier</option>
+    </select>
+    <label for="cartage">Contractor Routed To:</label>
+    <input type="text" id="cartage" value = "">
+  </div>
+  <hr>
+    <label for="xferto">Xfer To:</label>
+    <input type="text" id="xferto" value = "">
+  <hr>
+    <div id="notesdiv">
+      <textarea name="notes" id="notes" cols="100" rows="4" value = ""></textarea>
+      <button onClick= "saveNew()" >Create New Entry</button>
+    </div>
+  <hr>
+
+  </div>
+  <div>&copy Robert Lowell Brown 2018, 2019</div>
+
+  <script>
+
+          //create variable array to push to for spreadsheet update
+    var sheetData = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
+    var alertDate = ''
+    var dDate = ''
+    var pDate = ''
+    var podDate = '' //set when loading form from sheet data for now
+    var other = ''  //set when loading form from sheet data for now
+    var row = 0;
+    // set text input form select change
+    function selectChange(value, element) {
+      document.getElementById(element).value = value;
+      // based on value arrange form display
+      if(value == "D"){
+        showHide("ddtd", 'block');
+        showHide("ddth", 'block');
+        showHide("recoverydiv", 'block');
+        showHide("pdtd", 'none');
+        showHide("pdth", 'none');
+        showHide("dropdiv", 'none');
+      }else if(value == "P") {
+        showHide("ddtd", 'none');
+        showHide("ddth", 'none');
+        showHide("recoverydiv", 'none');
+        showHide("pdtd", 'block');
+        showHide("pdth", 'block');
+        showHide("dropdiv", 'block');
+      }else if(value == "PD" || value == "X" ) {
+        showHide("ddtd", 'block');
+        showHide("ddth", 'block');
+        showHide("recoverydiv", 'block');
+        showHide("pdtd", 'block');
+        showHide("pdth", 'block');
+        showHide("dropdiv", 'block');
+      }
+    }
+
+    function fillAci(zipEntry, idAci, idCity) {
+      // takes zipcoade typed in looks for match then returns ACI code from match or N/A
+      if(zipEntry.length >4) {
+      var aciCode = "n/a";
+      getZip(zipEntry, function(zipArray){
+        aciCode = zipArray.acilax;
+        zipCity = zipArray.city;
+        document.getElementById(idAci).value = aciCode;
+        document.getElementById(idCity).value = zipCity;
+      })
+      }
+    }
+
+    function showHide(id, displayType) {
+      var e = document.getElementById(id);
+      e.style.display = displayType;
+    }
+
+    function dateChange(value, element) {
+      if(element == 'alertdate'){
+        alertDate = value.toSting();
+      }
+      if(element == 'pdate'){
+        pDate = value.toSting();
+      }
+      if(element == 'ddate'){
+        dDate = value.toSting();
+      }
+    }
+
+    function createNew(data, row) {
+      // send to spread sheet and update the row
+      //console.log(data)
+        google.script.run.withSuccessHandler(onEntered).updateSheet(data, row);
+    }
+
+    function onEntered(hawbArray) {
+          //function to handle success of update
+          console.log(hawbArray);
+          google.script.host.close();
+    }
+
+    function getValues(callback){
+        // load element with values from hawbRowIndexgs object Array
+
+        sheetData[0] = document.getElementById('alertdt').value;
+        sheetData[1] = document.getElementById('alerttime').value;
+        sheetData[2] = document.getElementById('srvlevel').value;
+        sheetData[3] = hawbRowIndexgs.hawb
+        sheetData[4] = document.getElementById('srvtype').value;
+        sheetData[5] = document.getElementById('delzip').value;
+        sheetData[6] = document.getElementById('delaci').value;
+        sheetData[7] = document.getElementById('puzip').value;
+        sheetData[8] = document.getElementById('puaci').value;
+        sheetData[9] = document.getElementById('billwt').value;
+        sheetData[10]= "";
+        sheetData[11]= "";
+        sheetData[17] = document.getElementById('wtime').value;
+        sheetData[19]= "";
+        sheetData[20]= "";
+        if(sheetData[21] = document.getElementById('pdate').value.length >6) {
+          sheetData[21] = document.getElementById('pdate').value}else {sheetData[21] =""}
+        if(sheetData[22] = document.getElementById('pdate').value.length >6) {
+          sheetData[22] = document.getElementById('pdate').value}
+        sheetData[23] = document.getElementById('pfrom').value;
+        sheetData[24] = document.getElementById('pto').value ;
+        if(sheetData[25] = document.getElementById('ddate').value.length >6) {
+          sheetData[25] = document.getElementById('ddate').value}
+        sheetData[26] = document.getElementById('dfrom').value;
+        sheetData[27] = document.getElementById('dto').value;
+        sheetData[32] = document.getElementById('recovery').value;
+        sheetData[33] = document.getElementById('recoverybill').value;
+        sheetData[34] = document.getElementById('drop').value;
+        sheetData[35] = document.getElementById('dropbill').value;
+        sheetData[36] = document.getElementById('shipmethod').value;
+        sheetData[37] = document.getElementById('cartage').value;
+        sheetData[38] = document.getElementById('xferto').value;
+        sheetData[39] = document.getElementById('notes').value;
+        sheetData[42] = document.getElementById('delcity').value;
+        sheetData[43] = document.getElementById('pucity').value;
+
+        if(document.getElementById('spd').checked) {
+          sheetData[12] = 'spd';
+        }
+        if(document.getElementById('2man').checked) {
+          sheetData[13] = '2man';
+        }
+        if(document.getElementById('lg').checked) {
+          sheetData[14] = 'lg';
+        }
+        if(document.getElementById('ind').checked) {
+          sheetData[15] = 'ind';
+        }
+        if(document.getElementById('atm').checked) {
+          sheetData[16] = 'atm';
+        }
+        if(document.getElementById('upk').checked) {
+          sheetData[18] = 'upk';
+        }
+        if(document.getElementById('pac').checked) {
+          sheetData[28] = 'pac';
+        }
+        if(document.getElementById('wg').checked) {
+          sheetData[29] = 'wg';
+        }
+        if(document.getElementById('call').checked) {
+          sheetData[30] = 'call';
+        }
+        if(document.getElementById('res').checked) {
+          sheetData[31] = 'res';
+        }
+        if(document.getElementById('jack').checked) {
+          sheetData[40] = 'jack';
+        }
+        // get onby radio value
+        sheetData[44] = document.getElementById('ponbydisp').value;
+        sheetData[45] = document.getElementById('donbydisp').value;
+
+
+        var row = 0
+        callback(sheetData, row);
+      }
+
+      function saveNew() {
+        // manage sql insert and then new row
+        buildPostBodyEntry(function(data, postBodyRtrn, row) {
+          // take returned post body and send it to sendPost with url
+          var url = "https://lgltrax.lglship.com/sheetdata/insert"
+          sendPostEntry(data, url, postBodyRtrn, row)
+        });
+
+      }
+
+
+       function getZip(zip, callback) {
+            var http = new XMLHttpRequest();
+            var url = "https://lgltrax.lglship.com/aci/" + zip;
+            http.open("GET", url, true);
+            http.setRequestHeader('Content-Type', 'application/json');
+            http.onreadystatechange = function() {
+              if(http.readyState == 4) {
+                var zipCodeArray = JSON.parse(http.responseText);
+                callback(zipCodeArray[0]);
+              }
+            }
+            http.send();
+       }
+  </script>
+    <!-- include the html files  which have js code or css  -->
+    <?!= include('ajax'); ?>
+</body>
+</html>
