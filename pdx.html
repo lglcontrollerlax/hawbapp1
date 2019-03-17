@@ -1,0 +1,176 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LGL P D X</title>
+    <Style>
+        .bigger {
+            font-size: 4em;
+            font-weight: bold;
+            margin:0 10 20 25;
+        }
+        .big {
+            font-size: 3em;
+            margin:0 10 20 25;
+        }
+        .medium {
+            font-size: 1.25em;
+        }
+        .large {
+            font-size: 2em;
+        }
+        .border {
+            border: 1px solid black;
+        }
+        .pagewidth {
+            width: 850px
+        }
+        .spanmargin {
+            margin:0 10 20 25;
+        }
+        .theading {
+            width:300px;
+            padding-left: 25px;
+        }
+        .time {
+            width: 90px ;
+            font-size: 1em;
+        }
+        .assesor {
+            width:140;
+            padding-left: 8px;
+        }
+        .pl {
+            padding: 5 5 5 10;
+        }
+        .recover {
+            width: 140;
+        }
+        .underln {
+            text-decoration: underline;
+        }
+    </Style>
+</head>
+<body>
+    <div id="bodydiv">
+        <div id="heading" ><span class="big"><%= sheetData.D %></span>   <span class="bigger">Pick Deliv Xfer</span></div>
+        <div id="srvlevel"class="medium border pagewidth"><span class="spanmargin medium">Service Level: <i><%= sheetData.C %></i></span>
+            <span class="spanmargin medium">Shipment Type: <i><%= sheetData.AK %> %></i></span></div>
+        <div id="cityzipaci" class="medium border pagewidth"><span class="spanmargin medium"> Pick City: <i><%= sheetData.AR %></i></span>
+            <span class="spanmargin medium">Zip: <i><%= sheetData.H %></i></span> <span class="spanmargin medium"> ACI:<i><%= sheetData.I %></i></span><span class="spanmargin medium" > Billable WT:<i><%= sheetData.J %></i></span></span></div>
+        <div id="cityzipaci" class="medium border pagewidth"><span class="spanmargin medium"> Deliv City: <i><%= sheetData.AQ %></i></span>
+          <span class="spanmargin medium">Zip: <i><%= sheetData.F %></i></span> <span class="spanmargin medium"> ACI:<i><%= sheetData.G %></i></span></span></div>
+        <div id="datediv"><table>
+            <tr ><th class= "border">Alert Date</th><th class= "border">Pick Up Date</th><th class= "border">On or By</th><th class= "border">Delivery Date</th><th class= "border">On or By</th</tr>
+            <tr><td class="border theading medium"><%=sheetData.A %></td><td class="border theading big"><%=sheetData.W %></td><td class="border theading big"><%=sheetData.AS1 %></td>
+                <td class="border theading big"><%=sheetData.Z %></td><td class="border theading big"><%=sheetData.AT %></td>
+                </tr>
+            <tr><td class="border theading medium"> Alert Time: <span class="underln"><%=sheetData.B %></span> </td>
+                <td class="border  large"> From: <span class="underln"><%=sheetData.X %></span> To: <span class="underln"><%=sheetData.Y %></span></td>
+                <td class="border  large"> From: <span class="underln"><%=sheetData.AA %></span> To: <span class="underln"><%=sheetData.AB %></span></td></tr>
+        </table>
+        </div>
+        <div id="assesordiv">
+            <table>
+                <tr class="border" >
+                    <td class="assesor medium border pl"><input type="checkbox" id="spd" class="ckbx ">Special</td>
+                    <td class="assesor medium border"><input type="checkbox" id="lg" class="ckbx">Lift gate</td>
+                    <td class="assesor medium border"><input type="checkbox" id="ind" class="ckbx">Inside</td>
+                    <td class="assesor medium border"><input type="checkbox" id="2man" class="ckbx">2 man</td>
+                    <td class="assesor medium border"><input type="checkbox" id="pac" class="ckbx">Pack</td>
+                    <td class="assesor medium border"><input type="checkbox" id="upk" class="ckbx">Unpack</td>
+                </tr>
+                <tr>
+                    <td class="assesor medium border pl"><input type="checkbox" id="call" class="ckbx">Call Sched </td>
+                    <td class="assesor medium border"><input type="checkbox" id="wg" class="ckbx">White Glove</td>
+                    <td class="assesor medium border"><input type="checkbox" id="res" class="ckbx">Residential</td>
+                    <td class="assesor medium border"><input type="checkbox" id="atm" class="ckbx">Attempt</td>
+                    <td class="assesor medium border"><input type="checkbox" id="palj" class="ckbx">Pallet Jack</td>
+                    <td class="assesor medium border">Wait Time: <span class="underln"><%=sheetData.R %></span></td>
+                    </tr>
+            </table>
+        </div>
+        <div id="recoverydiv"><table>
+            <tr><td class="medium border pl">Cartage Co: <span class="underln"><%=sheetData.AL %></span></td>
+                <td class="medium border pl">POD/Complete Date:  <span><%=sheetData.V %></span></td>
+            </tr>
+        </table>
+        </div>
+        <div id="noteslist">
+            <table>
+                <tr><th>Notes</th><th>Status</th></tr>
+                <tr>
+                    <td id="notesarea"><textarea name="notes" id="notes" cols="70" rows="15"><%=sheetData.AN %></textarea></td>
+                    <td id="statusarea"><td id="status">
+                        <table>
+                            <tr><td class= "list medium" >___ Acknowledged</td></tr>
+                            <tr><td class= "list medium">___ Dispatched</td></tr>
+                            <tr><td class= "list medium">___ Picked Up</td></tr>
+                            <tr><td class= "list medium">___ Out For Deliv</td></tr>
+                            <tr><td class= "list medium">___ Delivered</td></tr>
+                            <tr><td class= "list medium">___ Pod Entered</td></tr>
+                            <tr><td class= "list medium">___ Pod Uploaded</td></tr>
+                            <tr><td class= "list medium">___ Charges</td></tr>
+                            <tr><td class= "list medium">___ Cartage Sheet</td></tr>
+                        </table>
+                        </td></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+    <% if (sheetData.M != "") { %>
+        <script>
+            document.getElementById("spd").checked = true
+        </script>
+    <% } %>
+    <% if (sheetData.N != "") { %>
+        <script>
+            document.getElementById("2man").checked = true
+        </script>
+    <% } %>
+    <% if (sheetData.o != "") { %>
+        <script>
+            document.getElementById("lg").checked = true
+        </script>
+    <% } %>
+    <% if (sheetData.P != "") { %>
+        <script>
+            document.getElementById("ind").checked = true
+        </script>
+    <% } %>
+    <% if (sheetData.Q != "") { %>
+        <script>
+            document.getElementById("atm").checked = true
+        </script>
+    <% } %>
+    <% if (sheetData.S != "") { %>
+        <script>
+            document.getElementById("upk").checked = true
+        </script>
+    <% } %>
+    <% if (sheetData.AC != "") { %>
+        <script>
+            document.getElementById("pac").checked = true
+        </script>
+    <% } %>
+    <% if (sheetData.AD != "") { %>
+        <script>
+            document.getElementById("wg").checked = true
+        </script>
+    <% } %>
+    <% if (sheetData.AE != "") { %>
+        <script>
+            document.getElementById("call").checked = true
+        </script>
+    <% } %>
+    <% if (sheetData.AF != "") { %>
+        <script>
+            document.getElementById("res").checked = true
+        </script>
+    <% } %>
+
+    <!-- end body div -->
+</body>
+</html>

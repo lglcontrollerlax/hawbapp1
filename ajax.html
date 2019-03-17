@@ -1,0 +1,93 @@
+<html lang="en">
+<head>
+</head>
+<body>
+    <script>
+        // code for data saving and posting add to all document centralize
+        function buildPostBody(hawb, callback) {
+            var h = hawb
+            console.log(h)
+            var postBody ={};
+            postBody.A = h[0], postBody.B = h[1], postBody.C = h[2], postBody.D = h[3], postBody.E = h[4];
+            postBody.F = h[5], postBody.G = h[6], postBody.H = h[7], postBody.I = h[8], postBody.J = h[9];
+            postBody.K = h[10], postBody.L = h[11], postBody.M = h[12], postBody.N = h[13], postBody.O = h[14];
+            postBody.P = h[15], postBody.Q = h[16], postBody.R = h[17], postBody.S = h[18], postBody.T = h[19];
+            postBody.U = h[20], postBody.V = h[21], postBody.W = h[22], postBody.X = h[23], postBody.Y = h[24];
+            postBody.Z = h[25], postBody.AA = h[26], postBody.AB = h[27], postBody.AC = h[28], postBody.AD = h[29];
+            postBody.AE = h[30], postBody.AF = h[31], postBody.AG = h[32], postBody.AH = h[33], postBody.AI = h[34];
+            postBody.AJ = h[35], postBody.AK = h[36], postBody.AL = h[37], postBody.AM = h[38], postBody.AN = h[39];
+            postBody.AO = h[40], postBody.AP = h[41], postBody.AQ = h[42], postBody.AR = h[43], postBody.AS1 = h[44], postBody.AT = h[45];
+            callback(postBody)
+        }
+        function buildPostBodyEntry(callback) {
+            getValues(function(data, row){
+            // send to SQL and Insert the row
+            var h = data;
+            console.log(h)
+            var postBody ={};
+            postBody.A = h[0], postBody.B = h[1], postBody.C = h[2], postBody.D = h[3], postBody.E = h[4];
+            postBody.F = h[5], postBody.G = h[6], postBody.H = h[7], postBody.I = h[8], postBody.J = h[9];
+            postBody.K = h[10], postBody.L = h[11], postBody.M = h[12], postBody.N = h[13], postBody.O = h[14];
+            postBody.P = h[15], postBody.Q = h[16], postBody.R = h[17], postBody.S = h[18], postBody.T = h[19];
+            postBody.U = h[20], postBody.V = h[21], postBody.W = h[22], postBody.X = h[23], postBody.Y = h[24];
+            postBody.Z = h[25], postBody.AA = h[26], postBody.AB = h[27], postBody.AC = h[28], postBody.AD = h[29];
+            postBody.AE = h[30], postBody.AF = h[31], postBody.AG = h[32], postBody.AH = h[33], postBody.AI = h[34];
+            postBody.AJ = h[35], postBody.AK = h[36], postBody.AL = h[37], postBody.AM = h[38], postBody.AN = h[39];
+            postBody.AO = h[40], postBody.AP = h[41], postBody.AQ = h[42], postBody.AR = h[43], postBody.AT = h[44], postBody.AS1 = h[45];
+            callback(data, postBody, row)
+
+        })
+      }
+
+      function sendPostEntry(data, url, body, row) {
+            var http = new XMLHttpRequest();
+            http.open("POST", url, true);
+            http.setRequestHeader('Content-Type', 'application/json');
+            http.send(JSON.stringify(body));
+            http.onreadystatechange = function() {
+              if(http.readyState == 4) {
+               createNew(data, row);
+              }
+            }
+
+
+       }
+
+
+
+        function printPost(row) {
+            var url = "https://lgltrax.lglship.com/printlgl";
+            var link = "https://lgltrax.lglship.com/printlgl";
+            buildPostBody(hawbsgs.hawb[(row-1)], function(body) {
+                // return the post body then send post request command
+                console.log(body)
+                sendPost(url, body, link);
+            })
+        }
+
+        function sendPost(url, body, link) {
+            var http = new XMLHttpRequest();
+            http.open("POST", url, true);
+            http.setRequestHeader('Content-Type', 'application/json');
+            http.send(JSON.stringify(body));
+            http.onreadystatechange = function() {
+                if(this.status == 200) {
+                    console.log(http.responseText)
+                    // now send print page request and open in blanktab WORK AROUND REQUIRED
+                    var divtab1_2 = document.getElementById('divtab1_2')
+                    var replaceTable = '<button><a href=' + link + ' target="_blank"> Printable Doc Prepared</a></button>'
+                    divtab1_2.innerHTML = replaceTable;
+                }else {
+                    console.log("failed")
+                }
+            }
+        }
+
+
+
+
+
+    </script>
+
+</body>
+</html>
