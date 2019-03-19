@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <script>
-      var hawbsgs = <?!= JSON.stringify(data) ?>;
+      //var hawbsgs = <?!= JSON.stringify(data) ?>;
 
     </script>
     <style>
@@ -25,13 +25,13 @@
         }
 
         .display {
-            display: block;
-            visibility: visible;
+           position: fixed;
+           left: 0px;
         }
 
         .hidden {
-            display: none;
-            visibility: visible;
+            position: fixed;
+            left: -250px;
         }
         .selected {
             background-color: lightgrey;
@@ -43,7 +43,11 @@
 
         }
         .routeinp {
+          display: inline-block;
           width: 90px;
+        }
+        .movable {
+          display: inline-block;
         }
         td, th {
          border: 1px solid black;
@@ -75,14 +79,53 @@
 
     </div>
     <div id="divtab3" class="hidden">
+     <div id="routingform">
 
-
+      <div id="cartagediv">
+      <h3>Active HAWB: </h3>
+      <label for="cartagesel">Cartage Contractor</label>
+      <select name="cartagesel" id="cartagesel" onchange="selectChange(e, cartage)" >
+        <option value="">Select One</option>
+        <option value="LAX">LAX lgl</option>
+        <option value="Bella">Bella</option>
+        <option value="Reserve">Reserve</option>
+        <option value="AllTime">All Time</option>
+        <option value="Metro">Metro</option>
+        <option value="Ventura">Ventura Hwy</option>
+        <option value="Orange">Orange Courier</option>
+      </select>
+      <hr>
+      <label for="cartage" class="movable">Contractor Routed To:</label>
+      <input type="text" id="cartage" class="routeinp" value = "">
+      <hr>
+      <label for="xferto" class="movable">Xfer To:</label>
+      <input type="text" id="xferto" class="routeinp" value = "">
+      <hr ></div>
+      <label for="recoverysel">Choose Recover From</label>
+      <select name="recoverysel" id="recoverysel"  onchange="selectChange(this.options[this.selectedIndex].value, recovery)">
+      <option value="">Select One</option>
+      <option value="Forward Air">Forward Air</option>
+      <option value="Land Air">Land Air</option>
+      <option value="American Line Haul">American Line Haul</option>
+      <option value="JIT">JIT</option>
+      <option value="Act2">ACT2</option>
+      <option value="Sterling">Sterling</option>
+      <option value="Southwest">Southwest</option>
+      <option value="American Airlines">American Airlines</option>
+      <option value="Delta">Delta</option>
+      <option value="United">United</option>
+      </select>
+      <input type="text" id="recovery" class="routeinp" value = "">
+      <label for="recoverybill" class="movable">Recovery Bill #</label>
+      <input type="text" id="recoverybill" class="routeinp" value = "">
+      <hr>
+      </div>
     </div>
     <div id="divtab4" class="hidden">Cost Sheet
 
     </div>
   </div>
-  <div>&copy Robert Lowell Brown 2018, 2019</div>
+<!-- <div>&copy Robert Lowell Brown 2018, 2019</div> -->
 
   <script>
         var tab1 = document.getElementById('tab1');
@@ -257,13 +300,13 @@
            var divtab1_2 = document.getElementById('divtab1_2') ;
            var hawbInput = document.getElementById('hawbIn');
            divtab1_2.innerHTML = "<h2>Opening Doc Now</h2>";
-           divtab3.innerHTML = "";
+           //divtab3.innerHTML = "";
             // timer to clear Opening Doc Now
             setTimeout(function() {
               divtab1_2.innerHTML = "Active SELECTED HAWB: <h2><i>" + tdData.innerHTML.toString().toUpperCase() + "</i></h2>";
               hawbInput.value = "";
-              loadRoutingHtml();
-              fillRoutingTab();
+              //loadRoutingHtml();
+              //fillRoutingTab();
 
             }, 300);
          }
@@ -285,7 +328,7 @@
         }
     </script>
     <!-- include the html file tabs which has js code in it for the tabs -->
-    <?!= include('tabs'); ?>
+
     <?!= include('ajax'); ?>
 </body>
 </html>

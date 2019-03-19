@@ -8,51 +8,9 @@
   var tabsHtml ='';
   var tabsHtml2='';
   var tabsHtml3='';
-  var startDiv = '<div id="routingform"> '
-  var endDiv = '</div>'
 
 
-  function loadRoutingHtml() {
-      tabsHtml += '<div id="cartagediv">'
-      tabsHtml += '<h3>Active HAWB: ' + hawbSel.hawb[0][3] + '</h3>'
-      tabsHtml += '<label for="cartagesel">Cartage Contractor</label>'
-      tabsHtml += '<select name="cartagesel" id="cartagesel"  onchange="selectChange(this.options[this.selectedIndex].value,' + "'cartage'" + ')">'
-      tabsHtml += '<option value="">Select One</option>'
-      tabsHtml += '<option value="LAX">LAX lgl</option>'
-      tabsHtml += '<option value="Bella">Bella</option>'
-      tabsHtml += '<option value="Reserve">Reserve</option>'
-      tabsHtml += '<option value="AllTime">All Time</option>'
-      tabsHtml += '<option value="Metro">Metro</option>'
-      tabsHtml += '<option value="Ventura">Ventura Hwy</option>'
-      tabsHtml += '<option value="Orange">Orange Courier</option>'
-      tabsHtml += '</select>'
-      tabsHtml += '<label for="cartage">Contractor Routed To:</label>'
-      tabsHtml += '<input type="text" id="cartage" class="routeinp" value = "' + hawbSel.hawb[0][37] +'">'
-      tabsHtml += '</div><hr>'
-      tabsHtml += '<label for="xferto">Xfer To:</label>'
-      tabsHtml += '<input type="text" id="xferto" class="routeinp" value = "">'
-      tabsHtml += '<hr>'
 
-      tabsHtml2 += '<div id="recoverydiv" class= "hide" >'
-      tabsHtml2 += '<label for="recoverysel">Choose Recover From</label>'
-      tabsHtml2 += '<select name="recoverysel" id="recoverysel"  onchange="selectChange(this.options[this.selectedIndex].value, ' + "'recovery'" + ')">'
-      tabsHtml2 += '<option value="">Select One</option>'
-      tabsHtml2 += '<option value="Forward Air">Forward Air</option>'
-      tabsHtml2 += '<option value="Land Air">Land Air</option>'
-      tabsHtml2 += '<option value="American Line Haul">American Line Haul</option>'
-      tabsHtml2 += '<option value="JIT">JIT</option>'
-      tabsHtml2 += '<option value="Act2">ACT2</option>'
-      tabsHtml2 += '<option value="Sterling">Sterling</option>'
-      tabsHtml2 += '<option value="Southwest">Southwest</option>'
-      tabsHtml2 += '<option value="American Airlines">American Airlines</option>'
-      tabsHtml2 += '<option value="Delta">Delta</option>'
-      tabsHtml2 += '<option value="United">United</option>'
-      tabsHtml2 += '</select>'
-      tabsHtml2 += '<input type="text" id="recovery" class="routeinp" value = "' + hawbSel.hawb[0][32] +'">'
-      tabsHtml2 += '<label for="recoverybill">Recovery Bill #</label>'
-      tabsHtml2 += '<input type="text" id="recoverybill" class="routeinp" value = "' + hawbSel.hawb[0][33] +'">'
-      tabsHtml2 += '<hr>'
-      tabsHtml2 += '</div>'
 
       tabsHtml3 += '<div id="dropdiv" class= "hide">'
       tabsHtml3 += '<label for="dropsel">Choose Drop To</label>'
@@ -76,9 +34,7 @@
       tabsHtml3 += '</div>'
       tabsHtml3 += '<button id="saveChanges" onClick= "saveRoutingChanges()" disabled >Save Any Changes</button>'
 
-
-
-  }
+divtab3 = startDiv + tabsHtml + tabsHtml2 + tabsHtml3 + endDiv ;
 
 function updateRoutingHawbSel(callback) {
   hawbSel.hawb[0][37] = document.getElementById("cartage").value;
@@ -90,7 +46,9 @@ function updateRoutingHawbSel(callback) {
 }
 
 function fillRoutingTab() {
-  clearHtml();
+  divtab3.classList.remove('hidden');
+  divtab3.classList.add('display');
+  divtab3.innerHTML = startDiv + "empty" + endDiv;
   var routingTabHtml = startDiv + tabsHtml + tabsHtml2 + tabsHtml3 + endDiv ;
   divtab3.innerHTML = routingTabHtml
  // add eventlistener on the form routingForm
@@ -102,6 +60,21 @@ function fillRoutingTab() {
     dirty = true;
     console.log(dirty)
   });
+}
+
+function clearHtml(){
+    divtab3.classList.remove('hidden');
+    divtab3.classList.add('display');
+    var elem = document.getElementById("divtab3")
+    elem.innerHTML = "";
+    // clear all child elements from an element
+    console.log("clearHtml hit")
+    console.log(elem)
+    console.log(elem.firstChild)
+    if(elem != null) {
+    while(elem.firstChild) { console.log(elem.firstChild)
+    elem.removeChild(elem.firstChild)}
+    }
 }
 
 
