@@ -90,7 +90,7 @@ function updateRoutingHawbSel(callback) {
 }
 
 function fillRoutingTab() {
-  divtab3.innerHTML = ""
+  clearHtml(divtab3);
   var routingTabHtml = startDiv + tabsHtml + tabsHtml2 + tabsHtml3 + endDiv ;
   divtab3.innerHTML = routingTabHtml
  // add eventlistener on the form routingForm

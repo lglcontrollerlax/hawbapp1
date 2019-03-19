@@ -85,8 +85,9 @@
 
 
 function clearHtml(elem){
-    // clear all child elements from an elements
-    
+    // clear all child elements from an element
+    while(elem.firstChild) {elem.removeChild(elem.firstChild)}
+
 }
 
 
