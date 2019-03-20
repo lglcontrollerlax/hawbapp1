@@ -5,34 +5,6 @@
   </head>
   <body>
 <script>
-  var tabsHtml ='';
-  var tabsHtml2='';
-  var tabsHtml3='';
-
-
-
-
-      tabsHtml3 += '<div id="dropdiv" class= "hide">'
-      tabsHtml3 += '<label for="dropsel">Choose Drop To</label>'
-      tabsHtml3 += '<select name="dropsel" id="dropsel"  onchange="selectChange(this.options[this.selectedIndex].value, ' + "'drop'" + ')">'
-      tabsHtml3 += '<option value="">Select One</option>'
-      tabsHtml3 += '<option value="Forward Air">Forward Air</option>'
-      tabsHtml3 += '<option value="Land Air">Land Air</option>'
-      tabsHtml3 += '<option value="American Line Haul">American Line Haul</option>'
-      tabsHtml3 += '<option value="JIT">JIT</option>'
-      tabsHtml3 += '<option value="Act2">ACT2</option>'
-      tabsHtml3 += '<option value="Sterling">Sterling</option>'
-      tabsHtml3 += '<option value="Southwest">Southwest</option>'
-      tabsHtml3 += '<option value="American Airlines">American Airlines</option>'
-      tabsHtml3 += '<option value="Delta">Delta</option>'
-      tabsHtml3 += '<option value="United">United</option>'
-      tabsHtml3 += '</select>'
-      tabsHtml3 += '<input type="text" id="drop" class="routeinp" value = "' + hawbSel.hawb[0][34] +'">'
-      tabsHtml3 += '<label for="dropbill">Drop Bill #</label>'
-      tabsHtml3 += '<input type="text" id="dropbill" class="routeinp" value = "' + hawbSel.hawb[0][35] +'">'
-      tabsHtml3 += '<hr>'
-      tabsHtml3 += '</div>'
-      tabsHtml3 += '<button id="saveChanges" onClick= "saveRoutingChanges()" disabled >Save Any Changes</button>'
 
 function updateRoutingHawbSel(callback) {
   hawbSel.hawb[0][37] = document.getElementById("cartage").value;
