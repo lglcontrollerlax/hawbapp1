@@ -7,11 +7,30 @@
 <script>
 
 function updateRoutingHawbSel(callback) {
+console.log("update hit")
   hawbSel.hawb[0][37] = document.getElementById("cartage").value;
   hawbSel.hawb[0][32] = document.getElementById("recovery").value;
   hawbSel.hawb[0][33] = document.getElementById("recoverybill").value;
   hawbSel.hawb[0][34] = document.getElementById("drop").value;
   hawbSel.hawb[0][35] = document.getElementById("dropbill").value;
+  callback()
+}
+
+function fillRoutingHawbSel(callback) {
+console.log("update hit")
+  document.getElementById("cartage").value = hawbSel.hawb[0][37];
+  document.getElementById("recovery").value = hawbSel.hawb[0][32];
+  document.getElementById("recoverybill").value = hawbSel.hawb[0][33];
+  document.getElementById("drop").value = hawbSel.hawb[0][34];
+  document.getElementById("dropbill").value = hawbSel.hawb[0][35];
+  var routingForm = document.getElementById("routingform");
+  var buttonSave = document.getElementById("saveChanges");
+  routingForm.addEventListener('change', function(e){
+    buttonSave.removeAttribute("disabled");
+    buttonSave.classList.add("bigred")
+    dirty = true;
+    console.log(dirty)
+   });
   callback()
 }
 
@@ -32,31 +51,7 @@ function fillRoutingTab() {
   });
 }
 
-function clearHtml(){
-    divtab3.classList.remove('hidden');
-    divtab3.classList.add('display');
-    var elem = document.getElementById("divtab3")
-    elem.innerHTML = "";
-    // clear all child elements from an element
-    console.log("clearHtml hit")
-    console.log(elem)
-    console.log(elem.firstChild)
-    if(elem != null) {
-    while(elem.firstChild) { console.log(elem.firstChild)
-    elem.removeChild(elem.firstChild)}
-    }
-}
-
-
-function saveRoutingChanges(){
-  // code to save routing tab input info into spreadsheet
- console.log("save clicked");
- alert("leaving Now Save Changes?")
-}
-
 </script>
 
   </body>
 </html>
-
-

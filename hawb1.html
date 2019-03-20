@@ -59,6 +59,11 @@
         .bigred {
           background-color: hotpink;
         }
+        .fakelink:hover {
+          color:blue;
+          transform: scale(1.15, 1.15);
+          cursor: pointer;
+        }
     </style>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
@@ -73,6 +78,7 @@
     </div>
     <div id="divtab1" class="display">Hawb:
       <input id= 'hawbIn' type="text" class= "smallInput" onkeyup="findHawb()" onblur= "checkForUpdate()" >
+      <div>&copy Robert Lowell Brown 2018, 2019</div>
       <div id = "divtab1_2"></div>
     </div>
     <div id="divtab2" class="hidden">Select
@@ -84,7 +90,7 @@
       <div id="cartagediv">
       <h3>Active HAWB: </h3>
       <label for="cartagesel">Cartage Contractor</label>
-      <select name="cartagesel" id="cartagesel" onchange="selectChange(e, cartage)" >
+      <select name="cartagesel" id="cartagesel" onchange="selectChange(this.options[this.selectedIndex].value, 'cartage')" >
         <option value="">Select One</option>
         <option value="LAX">LAX lgl</option>
         <option value="Bella">Bella</option>
@@ -100,10 +106,10 @@
       <hr>
       <label for="xferto" class="movable">Xfer To:</label>
       <input type="text" id="xferto" class="routeinp" value = "">
-      <hr ></div>
+      <hr >
       <label for="recoverysel">Choose Recover From</label>
       <br>
-      <select name="recoverysel" id="recoverysel"  onchange="selectChange(this.options[this.selectedIndex].value, recovery)">
+      <select name="recoverysel" id="recoverysel"  onchange="selectChange(this.options[this.selectedIndex].value, 'recovery')">
       <option value="">Select One</option>
       <option value="Forward Air">Forward Air</option>
       <option value="Land Air">Land Air</option>
@@ -121,7 +127,7 @@
       <input type="text" id="recoverybill" class="routeinp" value = "">
       <hr>
             <label for="dropsel">Choose Drop To</label>
-      <select name="dropsel" id="dropsel"  onchange="selectChange(this.options[this.selectedIndex].value, drop)">
+      <select name="dropsel" id="dropsel"  onchange="selectChange(this.options[this.selectedIndex].value, 'drop')">
       <option value="">Select One</option>
       <option value="Forward Air">Forward Air</option>
       <option value="Land Air">Land Air</option>
@@ -140,14 +146,14 @@
       <input type="text" id="dropbill" class="routeinp" value = "">
       <hr>
       <button id="saveChanges" onClick= "saveRoutingChanges()" disabled >Save Any Changes</button>
-
+        </div>
       </div>
     </div>
     <div id="divtab4" class="hidden">Cost Sheet
 
     </div>
   </div>
-<!-- <div>&copy Robert Lowell Brown 2018, 2019</div> -->
+
 
   <script>
         var tab1 = document.getElementById('tab1');
@@ -162,6 +168,16 @@
         var qStr = "";
         var hawbSel = "";
         var dirty = false
+
+        function saveRoutingChanges(){
+        // code to save routing tab input info into spreadsheet
+            console.log("SaveChanges")
+            updateHawbvalues(function() {
+                console.log(hawbSel)
+                google.script.run.withSuccessHandler(onUpdateHawb1).updateSheet(hawbSel.hawb[0], hawbSel.rowIndex[0][0]);
+         });
+        }
+
 
         function askSave() {
           if(dirty == true){
@@ -296,7 +312,7 @@
           // else build table from list of hawbs sent over
           var hawbTable = "<table><tr><th>(select)HAWB</th><th>Print</th><th>Update</th></tr>"
           for(x=0;x<hawbRowObj.hawb.length;x++) {
-                    hawbTable += "<tr><td class='hawbrow' onClick= 'hawbSelected(this)'>" + hawbRowObj.hawb[x][3] + "</td><td onClick= 'printPost(" + hawbRowObj.rowIndex[x][0] + " )'><a><i class=" + '"fas fa-print"></i></a></td><td  onClick= "hawbUpdate(' + "'" + hawbRowObj.hawb[x][3].toString().toUpperCase() + "'" + ')"><i class="fas fa-edit"></i>'
+                    hawbTable += "<tr><td class='hawbrow fakelink' onClick= 'hawbSelected(this)'>" + hawbRowObj.hawb[x][3] + "</td><td onClick= 'printPost(" + hawbRowObj.rowIndex[x][0] + " )'><a><i class=" + '"fakelink fas fa-print"></i></a></td><td  onClick= "hawbUpdate(' + "'" + hawbRowObj.hawb[x][3].toString().toUpperCase() + "'" + ')"><i class="fakelink fas fa-edit"></i>'
                     hawbTable += "</td>"
 
           }
@@ -322,15 +338,11 @@
            var divtab1_2 = document.getElementById('divtab1_2') ;
            var hawbInput = document.getElementById('hawbIn');
            divtab1_2.innerHTML = "<h2>Opening Doc Now</h2>";
-           //divtab3.innerHTML = "";
-            // timer to clear Opening Doc Now
-            setTimeout(function() {
+
+           updateRoutingHawbSel(function() {
               divtab1_2.innerHTML = "Active SELECTED HAWB: <h2><i>" + tdData.innerHTML.toString().toUpperCase() + "</i></h2>";
               hawbInput.value = "";
-              //loadRoutingHtml();
-              //fillRoutingTab();
-
-            }, 300);
+            });
          }
 
          function createNew() {
@@ -350,7 +362,7 @@
         }
     </script>
     <!-- include the html file tabs which has js code in it for the tabs -->
-
+    <?!= include('tabs'); ?>
     <?!= include('ajax'); ?>
 </body>
 </html>
