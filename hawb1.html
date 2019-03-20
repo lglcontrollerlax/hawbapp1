@@ -31,7 +31,7 @@
 
         .hidden {
             position: fixed;
-            left: -250px;
+            left: -290px;
         }
         .selected {
             background-color: lightgrey;
@@ -102,6 +102,7 @@
       <input type="text" id="xferto" class="routeinp" value = "">
       <hr ></div>
       <label for="recoverysel">Choose Recover From</label>
+      <br>
       <select name="recoverysel" id="recoverysel"  onchange="selectChange(this.options[this.selectedIndex].value, recovery)">
       <option value="">Select One</option>
       <option value="Forward Air">Forward Air</option>
@@ -116,7 +117,7 @@
       <option value="United">United</option>
       </select>
       <input type="text" id="recovery" class="routeinp" value = "">
-      <label for="recoverybill" class="movable">Recovery Bill #</label>
+      <br><label for="recoverybill" class="movable">Recovery Bill #</label>
       <input type="text" id="recoverybill" class="routeinp" value = "">
       <hr>
       </div>
