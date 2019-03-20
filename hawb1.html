@@ -88,7 +88,7 @@
      <div id="routingform">
 
       <div id="cartagediv">
-      <h3>Active HAWB: </h3>
+      <h3 id="activehawbrouting">Active HAWB: </h3>
       <label for="cartagesel">Cartage Contractor</label>
       <select name="cartagesel" id="cartagesel" onchange="selectChange(this.options[this.selectedIndex].value, 'cartage')" >
         <option value="">Select One</option>
@@ -312,7 +312,8 @@
           // else build table from list of hawbs sent over
           var hawbTable = "<table><tr><th>(select)HAWB</th><th>Print</th><th>Update</th></tr>"
           for(x=0;x<hawbRowObj.hawb.length;x++) {
-                    hawbTable += "<tr><td class='hawbrow fakelink' onClick= 'hawbSelected(this)'>" + hawbRowObj.hawb[x][3] + "</td><td onClick= 'printPost(" + hawbRowObj.rowIndex[x][0] + " )'><a><i class=" + '"fakelink fas fa-print"></i></a></td><td  onClick= "hawbUpdate(' + "'" + hawbRowObj.hawb[x][3].toString().toUpperCase() + "'" + ')"><i class="fakelink fas fa-edit"></i>'
+                    hawbTable += "<tr><td class='hawbrow fakelink' onClick= 'hawbSelected(this)'>" + hawbRowObj.hawb[x][3] + "</td><td onClick= 'printPost(" + hawbRowObj.rowIndex[x][0] + " )'><a><i class="
+                    hawbTable += '"fakelink fas fa-print"></i></a></td><td  onClick= "hawbUpdate(' + "'" + hawbRowObj.hawb[x][3].toString().toUpperCase() + "'" + ')"><i class="fakelink fas fa-edit"></i>'
                     hawbTable += "</td>"
 
           }
@@ -341,6 +342,7 @@
 
            updateRoutingHawbSel(function() {
               divtab1_2.innerHTML = "Active SELECTED HAWB: <h2><i>" + tdData.innerHTML.toString().toUpperCase() + "</i></h2>";
+              document.getElementById("activehawbrouting").text = "<h2>Active HAWB: <i>" + tdData.innerHTML.toString().toUpperCase() + "</i></h2>";
               hawbInput.value = "";
             });
          }
