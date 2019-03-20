@@ -120,6 +120,27 @@
       <br><label for="recoverybill" class="movable">Recovery Bill #</label>
       <input type="text" id="recoverybill" class="routeinp" value = "">
       <hr>
+            <label for="dropsel">Choose Drop To</label>
+      <select name="dropsel" id="dropsel"  onchange="selectChange(this.options[this.selectedIndex].value, drop)">
+      <option value="">Select One</option>
+      <option value="Forward Air">Forward Air</option>
+      <option value="Land Air">Land Air</option>
+      <option value="American Line Haul">American Line Haul</option>
+      <option value="JIT">JIT</option>
+      <option value="Act2">ACT2</option>
+      <option value="Sterling">Sterling</option>
+      <option value="Southwest">Southwest</option>
+      <option value="American Airlines">American Airlines</option>
+      <option value="Delta">Delta</option>
+      <option value="United">United</option>
+      </select>
+      <br>
+      <input type="text" id="drop" class="routeinp" value = "">
+      <label for="dropbill" class="movable"> Drop Bill #</label>
+      <input type="text" id="dropbill" class="routeinp" value = "">
+      <hr>
+      <button id="saveChanges" onClick= "saveRoutingChanges()" disabled >Save Any Changes</button>
+
       </div>
     </div>
     <div id="divtab4" class="hidden">Cost Sheet
