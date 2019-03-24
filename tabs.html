@@ -16,7 +16,7 @@ console.log("update hit")
   callback()
 }
 
-function fillAsses() {
+function fillAsses(callback) {
 
     if(hawbSel.hawb[0][12] != "") {document.getElementById('spd').checked = true;}
     if(hawbSel.hawb[0][13] != "") {document.getElementById('2man').checked = true;}
@@ -29,6 +29,7 @@ function fillAsses() {
     if(hawbSel.hawb[0][30] != "") {document.getElementById('call').checked = true;}
     if(hawbSel.hawb[0][31] != "") {document.getElementById('res').checked = true;}
     if(hawbSel.hawb[0][40] != "") {document.getElementById('jack').checked = true;}
+    callback();
 }
 
 function fillRoutingHawbSel(callback) {

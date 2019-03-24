@@ -85,6 +85,7 @@
       <div id = "divtab1_2"></div>
     </div>
     <div id="divtab2" class="hidden">
+        <h3 id="activehawbasses">Active HAWB: </h3>
          <hr>
     <div id="assesdiv">
       <table id="asses">
@@ -390,10 +391,12 @@
 
            fillRoutingHawbSel(function() {
               divtab1_2.innerHTML = "Active SELECTED HAWB: <h2><i>" + tdData.innerHTML.toString().toUpperCase() + "</i></h2>";
-              document.getElementById("activehawbrouting").text = "<h2>Active HAWB: <i>" + tdData.innerHTML.toString().toUpperCase() + "</i></h2>";
+              document.getElementById("activehawbrouting").innerHTML = "Active HAWB: <h3><i>" + tdData.innerHTML.toString().toUpperCase() + "</i></h3>";
               hawbInput.value = "";
             });
-            fillAsses();
+            fillAsses(function() {
+              document.getElementById("activehawbasses").innerHTML = "Active HAWB: <h3><i>" + tdData.innerHTML.toString().toUpperCase() + "</i></h3>";
+            });
          }
 
          function createNew() {
