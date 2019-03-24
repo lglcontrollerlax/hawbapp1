@@ -16,6 +16,21 @@ console.log("update hit")
   callback()
 }
 
+function fillAsses() {
+
+    if(hawbSel.hawb[0][12] != "") {document.getElementById('spd').checked = true;}
+    if(hawbSel.hawb[0][13] != "") {document.getElementById('2man').checked = true;}
+    if(hawbSel.hawb[0][14] != "") {document.getElementById('lg').checked = true;}
+    if(hawbSel.hawb[0][15] != "") {document.getElementById('ind').checked = true;}
+    if(hawbSel.hawb[0][16] != "") {document.getElementById('atm').checked = true;}
+    if(hawbSel.hawb[0][18] != "") {document.getElementById('upk').checked = true;}
+    if(hawbSel.hawb[0][28] != "") {document.getElementById('pac').checked = true;}
+    if(hawbSel.hawb[0][29] != "") {document.getElementById('wg').checked = true;}
+    if(hawbSel.hawb[0][30] != "") {document.getElementById('call').checked = true;}
+    if(hawbSel.hawb[0][31] != "") {document.getElementById('res').checked = true;}
+    if(hawbSel.hawb[0][40] != "") {document.getElementById('jack').checked = true;}
+}
+
 function fillRoutingHawbSel(callback) {
 console.log("update hit")
   document.getElementById("cartage").value = hawbSel.hawb[0][37];
@@ -31,7 +46,7 @@ console.log("update hit")
     dirty = true;
     console.log(dirty)
    });
-  callback()
+  callback();
 }
 
 function fillRoutingTab() {

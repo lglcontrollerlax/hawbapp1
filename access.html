@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+    <script>
+      var hawbRowIndexgs = <?!= JSON.stringify(data) ?>;
+      //console.log(hawbRowIndexgs)
+    </script>
+ <title>Hawb Entry</title>
+ <style>
+   body {
+       background-color:#eff9f9;
+   }
+   td {
+     padding: 5px;
+     border: 1px solid grey;
+   }
+   .alertdate, .pdate, .ddate {
+     width: 130px;
+   }
+   .asses {
+    width: 15px;
+   }
+   .times{
+     margin-top: 3px;
+     width: 65px;
+     margin-right: 3px;
+   }
+   #delaci, #puaci, #wtime, #shipmethod {
+    width: 30px;
+    margin-left: 5px;
+   }
+   #shipmethod {
+    width: 50px;
+    margin-left: 5px;
+   }
+   .hide {
+     display: none;
+   }
+
+ </style>
+
+</head>
+<body>
+
+
+    <hr>
+    <div id="assesdiv">
+      <table id="asses">
+        <tr><th>Assessorials</th></tr>
+        <tr>
+          <td><input class='asses' type="checkbox" id="lg">Liftgate</td>
+          <td><input class='asses' type="checkbox" id="spd">Special</td>
+          <td><input class='asses' type="checkbox" id="ind">Inside</td>
+        </tr>
+        <tr>
+          <td><input class='asses' type="checkbox" id="upk">UnPack</td>
+          <td><input class='asses' type="checkbox" id="pac">Pack</td>
+          <td><input class='asses' type="checkbox" id="2man">2 Man</td>
+        </tr>
+        <tr>
+          <td><input class='asses' type="checkbox" id="wg">White Glove</td>
+          <td><input class='asses' type="checkbox" id="jack">Pallet Jack</td>
+        </tr></table>
+
+        <table><tr>
+            <td><input class='asses' type="checkbox" id="call" value = "">Call to Schedule</td>
+            </tr>
+            <tr>
+            <td><input class='asses' type="checkbox" id="res" value = "">Residence</td>
+            </tr>
+            <tr>
+            <td><input class='asses' type="checkbox" id="atm" value = "">Attempt</td>
+            </tr>
+            <tr>
+            <td><label for="waittime">Select Wait Time</label><select name="waittime" id="waitime" onchange="selectChange(this.options[this.selectedIndex].value, 'wtime')">
+                <option value="0">0</option>
+                <option value="15">15</option><option value="30">30</option>
+                <option value="45">45</option><option value="60">1 hr</option>
+                <option value="75">75</option><option value="90">90</option>
+                <option value="105">105</option><option value="120">2 hr</option>
+                <option value="135">135</option><option value="150">150</option>
+                <option value="165">165</option><option value="180">3 hr</option>
+                <option value="195">195</option><option value="210">210</option>
+                <option value="225">225</option><option value="240">4 hr</option>
+                <option value="270">4hr 30m</option><option value="300">5hr</option>
+                <option value="330">5hr 30m</option><option value="400">6hr</option>
+              </select><input type="text" id= "wtime" value='0' value = "" readonly >Minutes</td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+    </body>
+</html>
+
