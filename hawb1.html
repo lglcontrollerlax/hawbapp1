@@ -130,6 +130,7 @@
               </select><input type="text" id= "wtime" value='0' value = "" readonly >Minutes</td>
             </tr>
         </table>
+             <button id="saveChanges2" onClick= "saveRoutingChanges()" disabled >Save Any Changes</button>
     </div>
 
     </div>
@@ -175,7 +176,7 @@
       <br><label for="recoverybill" class="movable">Recovery Bill #</label>
       <input type="text" id="recoverybill" class="routeinp" value = "">
       <hr>
-            <label for="dropsel">Choose Drop To</label>
+      <label for="dropsel">Choose Drop To</label>
       <select name="dropsel" id="dropsel"  onchange="selectChange(this.options[this.selectedIndex].value, 'drop')">
       <option value="">Select One</option>
       <option value="Forward Air">Forward Air</option>
@@ -222,6 +223,7 @@
         // code to save routing tab input info into spreadsheet
             console.log("SaveChanges")
             updateHawbvalues(function() {
+                // call saveA
                 console.log(hawbSel)
                 google.script.run.withSuccessHandler(onUpdateHawb1).updateSheet(hawbSel.hawb[0], hawbSel.rowIndex[0][0]);
          });
@@ -248,7 +250,10 @@
         function updateHawbvalues(callback) {
           //update the selected hawb value
           updateRoutingHawbSel(function(){
-            callback()
+              //call UpdateAssesHawnSel
+            UpdateAssesHawnSel(function(){
+                callback()
+            })
           })
         }
 

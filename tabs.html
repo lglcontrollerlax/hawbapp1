@@ -57,6 +57,14 @@ function fillAsses(callback) {
     if(hawbSel.hawb[0][30] != "") {document.getElementById('call').checked = true;}
     if(hawbSel.hawb[0][31] != "") {document.getElementById('res').checked = true;}
     if(hawbSel.hawb[0][40] != "") {document.getElementById('jack').checked = true;}
+    var assessDiv = document.getElementById("assessDiv");
+    var buttonSave2 = document.getElementById("saveChanges2");
+      assessDiv.addEventListener('change', function(e){
+        buttonSave2.removeAttribute("disabled");
+        buttonSave2.classList.add("bigred")
+        dirty = true;
+        console.log(dirty)
+   });
     callback();
 }
 
