@@ -16,6 +16,34 @@ console.log("update hit")
   callback()
 }
 
+function UpdateAssesHawnSel(callback) {
+     // get checkmarked asses values and prepare to submit to sheet
+        if(document.getElementById('spd').checked) { hawbSel.hawb[0][12] = 'spd';
+        }else{hawbSel.hawb[0][12] = "Delete"}
+        if(document.getElementById('2man').checked) { hawbSel.hawb[0][13] = '2man';
+        }else{hawbSel.hawb[0][13] = "Delete"}
+        if(document.getElementById('lg').checked) {  hawbSel.hawb[0][14] = 'lg';
+        }else{hawbSel.hawb[0][14] = "Delete"}
+        if(document.getElementById('ind').checked) {  hawbSel.hawb[0][15] = 'ind';
+        }else{hawbSel.hawb[0][15] = "Delete"}
+        if(document.getElementById('atm').checked) { hawbSel.hawb[0][16] = 'atm';
+        }else{hawbSel.hawb[0][16] = "Delete"}
+        if(document.getElementById('upk').checked) {  hawbSel.hawb[0][18] = 'upk';
+        }else{hawbSel.hawb[0][18] = "Delete"}
+        if(document.getElementById('pac').checked) {  hawbSel.hawb[0][28] = 'pac';
+        }else{hawbSel.hawb[0][28] = "Delete"}
+        if(document.getElementById('wg').checked) {  hawbSel.hawb[0][29] = 'wg';
+        }else{hawbSel.hawb[0][29] = "Delete"}
+        if(document.getElementById('call').checked) { hawbSel.hawb[0][30] = 'call';
+        }else{hawbSel.hawb[0][30] = "Delete"}
+        if(document.getElementById('res').checked) { hawbSel.hawb[0][31] = 'res';
+        }else{hawbSel.hawb[0][31] = "Delete"}
+        if(document.getElementById('jack').checked) {  hawbSel.hawb[0][40] = 'jack';
+        }else{hawbSel.hawb[0][31] = "Delete"}
+
+    Callback()
+}
+
 function fillAsses(callback) {
 
     if(hawbSel.hawb[0][12] != "") {document.getElementById('spd').checked = true;}
