@@ -31,7 +31,7 @@
 
         .hidden {
             position: fixed;
-            left: -290px;
+            left: -300px;
         }
         .selected {
             background-color: lightgrey;
@@ -232,7 +232,7 @@
 
         function askSave() {
           if(dirty == true){
-          if (confirm('Save Changes?')) {
+          if (confirm('Save Changes? Cancel erases unsved changes all tabs')) {
                 console.log("SaveChanges")
                 updateHawbvalues(function() {
                   console.log(hawbSel)
@@ -241,6 +241,7 @@
            } else {
               // Do nothing!
               console.log("DON'T SaveChanges")
+              onCancelUpdate();
            }
           // set dirty to false again after yes or no answer
           dirty = false
@@ -251,19 +252,37 @@
           //update the selected hawb value
           updateRoutingHawbSel(function(){
               //call UpdateAssesHawnSel
-            UpdateAssesHawnSel(function(){
+            updateAssesHawbSel(function(){
                 callback()
             })
           })
         }
 
         function onUpdateHawb1(){
-          // set router button to disabled
-          var buttonSave = document.getElementById("saveChanges");
-          buttonSave.disabled = true;
-          buttonSave.classList.remove("bigred")
-          dirty = false
-          //divtab3.innerHTML = ""
+         // set router and asses button to disabled
+            var buttonSave = document.getElementById("saveChanges");
+            buttonSave.disabled = true;
+            buttonSave.classList.remove("bigred")
+            var buttonSave2 = document.getElementById("saveChanges2");
+            buttonSave2.disabled = true;
+            buttonSave2.classList.remove("bigred")
+            dirty = false
+            console.log("buttons changed")
+        }
+
+         function onCancelUpdate(){
+          //reset values in the tabs to hawb values then clear dirty status
+          var tdData =  hawbSel.hawb[0][3];
+          console.log(tdData)
+          hawbSelected(tdData)
+            // set router and asses button to disabled
+            var buttonSave = document.getElementById("saveChanges");
+            buttonSave.disabled = true;
+            buttonSave.classList.remove("bigred")
+            var buttonSave2 = document.getElementById("saveChanges2");
+            buttonSave2.disabled = true;
+            buttonSave2.classList.remove("bigred")
+            dirty = false
         }
 
         function tabClicked(tabClicked) {
