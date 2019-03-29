@@ -81,8 +81,16 @@
     </div>
     <div id="divtab1" class="display">Hawb:
       <input id= 'hawbIn' type="text" class= "smallInput" onkeyup="findHawb()" onblur= "checkForUpdate()" >
+
       <div>&copy Robert Lowell Brown 2018, 2019</div>
       <div id = "divtab1_2"></div>
+      <!-- code for tab 1 -->
+        <div id="notesdiv" class= "hidden" >
+            <label for= notes >Notes</label><br>
+         <textarea name="notes" id="notes" cols="30" rows="6" value = ""></textarea>
+          <br>
+          <button id="saveChanges3" onClick= "saveRoutingChanges()" disabled >Save Any Changes</button>
+        </div>
     </div>
     <div id="divtab2" class="hidden">
         <h3 id="activehawbasses">Active HAWB: </h3>
@@ -282,6 +290,9 @@
             var buttonSave2 = document.getElementById("saveChanges2");
             buttonSave2.disabled = true;
             buttonSave2.classList.remove("bigred")
+            var buttonSave3 = document.getElementById("saveChanges2");
+            buttonSave3.disabled = true;
+            buttonSave3.classList.remove("bigred")
             dirty = false
         }
 
@@ -409,7 +420,7 @@
            var divtab1_2 = document.getElementById('divtab1_2') ;
            var hawbInput = document.getElementById('hawbIn');
            divtab1_2.innerHTML = "<h2>Opening Doc Now</h2>";
-
+            var textDiv = document.getElementById("notesdiv")
            fillRoutingHawbSel(function() {
               divtab1_2.innerHTML = "Active SELECTED HAWB: <h2><i>" + tdData.toString().toUpperCase() + "</i></h2>";
               document.getElementById("activehawbrouting").innerHTML = "Active HAWB: <h3><i>" + tdData.toString().toUpperCase() + "</i></h3>";
