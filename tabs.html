@@ -46,16 +46,27 @@ function updateAssesHawbSel(callback) {
 
 function fillAsses(callback) {
     if(hawbSel.hawb[0][12] != "") {document.getElementById('spd').checked = true;}
+        else{document.getElementById('spd').checked = false;}
     if(hawbSel.hawb[0][13] != "" ) {document.getElementById('2man').checked = true;}
+        else{document.getElementById('2man').checked = false;}
     if(hawbSel.hawb[0][14] != "" ) {document.getElementById('lg').checked = true;}
+        else{document.getElementById('lg').checked = false;}
     if(hawbSel.hawb[0][15] != "" ) {document.getElementById('ind').checked = true;}
+        else{document.getElementById('ind').checked = false;}
     if(hawbSel.hawb[0][16] != "" ) {document.getElementById('atm').checked = true;}
+        else{document.getElementById('atm').checked = false;}
     if(hawbSel.hawb[0][18] != "" ) {document.getElementById('upk').checked = true;}
+        else{document.getElementById('upk').checked = false;}
     if(hawbSel.hawb[0][28] != "" ) {document.getElementById('pac').checked = true;}
+        else{document.getElementById('pac').checked = false;}
     if(hawbSel.hawb[0][29] != "" ) {document.getElementById('wg').checked = true;}
+        else{document.getElementById('wg').checked = false;}
     if(hawbSel.hawb[0][30] != "" ) {document.getElementById('call').checked = true;}
+        else{document.getElementById('call').checked = false;}
     if(hawbSel.hawb[0][31] != "" ) {document.getElementById('res').checked = true;}
+        else{document.getElementById('res').checked = false;}
     if(hawbSel.hawb[0][40] != "" ) {document.getElementById('jack').checked = true;}
+        else{document.getElementById('jack').checked = false;}
     var assesDiv = document.getElementById("assesdiv");
     var buttonSave2 = document.getElementById("saveChanges2");
       assesDiv.addEventListener('change', function(e){
