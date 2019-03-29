@@ -250,9 +250,9 @@
 
         function updateHawbvalues(callback) {
           //update the selected hawb value
-          updateRoutingHawbSel(function(){
+          updateAssesHawbSel(function(){
               //call UpdateAssesHawnSel
-            fillAsses(function(){
+            updateRoutingHawbSel(function(){
                 callback()
             })
           })
