@@ -273,7 +273,7 @@
          function onCancelUpdate(){
           //reset values in the tabs to hawb values then clear dirty status
           var tdData =  hawbSel.hawb[0][3];
-          console.log(tdData)
+          console.log("onCancel:" + tdData)
           hawbSelected(tdData)
             // set router and asses button to disabled
             var buttonSave = document.getElementById("saveChanges");
@@ -405,19 +405,18 @@
          }
 
          function hawbSelected(tdData) {
-           //console.log(rowData.innerHTML.toString().toUpperCase())
-           hawbSel = matchHawb(tdData.toUpperCase());
+          hawbSel = matchHawb(tdData.toString().toUpperCase());
            var divtab1_2 = document.getElementById('divtab1_2') ;
            var hawbInput = document.getElementById('hawbIn');
            divtab1_2.innerHTML = "<h2>Opening Doc Now</h2>";
 
            fillRoutingHawbSel(function() {
-              divtab1_2.innerHTML = "Active SELECTED HAWB: <h2><i>" + tdData.innerHTML.toString().toUpperCase() + "</i></h2>";
-              document.getElementById("activehawbrouting").innerHTML = "Active HAWB: <h3><i>" + tdData.innerHTML.toString().toUpperCase() + "</i></h3>";
+              divtab1_2.innerHTML = "Active SELECTED HAWB: <h2><i>" + tdData.toString().toUpperCase() + "</i></h2>";
+              document.getElementById("activehawbrouting").innerHTML = "Active HAWB: <h3><i>" + tdData.toString().toUpperCase() + "</i></h3>";
               hawbInput.value = "";
             });
             fillAsses(function() {
-              document.getElementById("activehawbasses").innerHTML = "Active HAWB: <h3><i>" + tdData.innerHTML.toString().toUpperCase() + "</i></h3>";
+              document.getElementById("activehawbasses").innerHTML = "Active HAWB: <h3><i>" + tdData.toString().toUpperCase() + "</i></h3>";
             });
          }
 
