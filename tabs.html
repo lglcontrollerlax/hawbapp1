@@ -16,6 +16,13 @@ console.log("update hit")
   callback()
 }
 
+function updateNotesHawbSel(callback) {
+console.log("update hit")
+  hawbSel.hawb[0][41] = document.getElementById("notesdiv").value;
+  hawbSel.hawb[0][0] = document.getElementById("billwt").value;
+  callback()
+}
+
 function updateAssesHawbSel(callback) {
      // get checkmarked asses values and prepare to submit to sheet
         if(document.getElementById('spd').checked) { hawbSel.hawb[0][12] = 'spd';
@@ -95,7 +102,7 @@ console.log("update hit")
    // notesDiv tab1 fill
   var notesDiv = document.getElementById("notesdiv");
   var buttonSave3 = document.getElementById("saveChanges3");
-  notesDiv.value =  = hawbSel.hawb[0][39];
+  notesDiv.value  = hawbSel.hawb[0][39];
   document.getElementById("billwt").value = hawbSel.hawb[0][9];
 
   notesDiv.addEventListener('change', function(e){

@@ -263,7 +263,9 @@
           updateAssesHawbSel(function(){
               //call UpdateAssesHawnSel
             updateRoutingHawbSel(function(){
-                callback()
+                updateNotesHawbSel(function(){
+                    callback()
+                })
             })
           })
         }
