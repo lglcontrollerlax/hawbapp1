@@ -92,9 +92,13 @@ console.log("update hit")
     buttonSave.classList.add("bigred")
     dirty = true;
    });
-  var noteDiv = document.getElementById("notediv");
+   // notesDiv tab1 fill
+  var notesDiv = document.getElementById("notesdiv");
   var buttonSave3 = document.getElementById("saveChanges3");
-  noteDiv.addEventListener('change', function(e){
+  notesDiv.value =  = hawbSel.hawb[0][39];
+  document.getElementById("billwt").value = hawbSel.hawb[0][9];
+
+  notesDiv.addEventListener('change', function(e){
     buttonSave3.removeAttribute("disabled");
     buttonSave3.classList.add("bigred")
     dirty = true;

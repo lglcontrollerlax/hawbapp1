@@ -423,6 +423,8 @@
            var hawbInput = document.getElementById('hawbIn');
            divtab1_2.innerHTML = "<h2>Opening Doc Now</h2>";
             var textDiv = document.getElementById("notesdiv")
+            textDiv.classList.remove('hidden');
+            textDiv.classList.add('display');
            fillRoutingHawbSel(function() {
               divtab1_2.innerHTML = "Active SELECTED HAWB: <h2><i>" + tdData.toString().toUpperCase() + "</i></h2>";
               document.getElementById("activehawbrouting").innerHTML = "Active HAWB: <h3><i>" + tdData.toString().toUpperCase() + "</i></h3>";
