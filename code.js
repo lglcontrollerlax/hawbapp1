@@ -120,3 +120,12 @@ function updateSheet(rowData, row) {
   }
 }
 
+function getInHouse() {
+    // get inhouse sheet cost data and send over in object array
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName("In House Sheet")
+  var val = sheet.getDataRange().getValues();
+
+  return JSON.stringify(val);
+}
+

@@ -209,7 +209,8 @@
         </div>
       </div>
     </div>
-    <div id="divtab4" class="hidden">Cost Sheet
+    <div id="divtab4" class="hidden">
+        <button onclick="loadInHouse()" >Load InHouse</button>
 
     </div>
   </div>
@@ -236,6 +237,15 @@
                 // call save
                 google.script.run.withSuccessHandler(onUpdateHawb1).updateSheet(hawbSel.hawb[0], hawbSel.rowIndex[0][0]);
          });
+        }
+
+        function loadInHouse() {
+            // load current inhouse data sheet set to auto later with hawbdatags
+            google.script.run.withSuccessHandler(inHouseData).getInHouse();
+        };
+
+        function inHouseData(sheetData) {
+            console.log(sheetData);
         }
 
 
