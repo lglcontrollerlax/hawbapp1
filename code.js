@@ -16,30 +16,26 @@ function getSheetData() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getActiveSheet();
   var val = sheet.getDataRange().getValues();
-  // reformat dates on sheet into data
+ // reformat dates on sheet into data
   for(x=1;x<val.length;x++){
 
     if(val[x][0] != ""){
       dateRtrn= Utilities.formatDate(val[x][0], "GMT", "MM/dd/yyyy")
       val[x][0] = dateRtrn;
     }
-    // if(val[x][21] != ""){
-    //   dateRtrn= Utilities.formatDate(val[x][21], "GMT", "MM/dd/yyyy")
-    //   val[x][21] = dateRtrn;
-    // }
-    // if(val[x][22] != ""){
-    //   dateRtrn= Utilities.formatDate(val[x][22], "GMT", "MM/dd/yyyy")
-    //   val[x][22] = dateRtrn;
-    // }
-    // if(val[x][25] != ""){
-    //   dateRtrn= Utilities.formatDate(val[x][25], "GMT", "MM/dd/yyyy")
-    //   val[x][25] = dateRtrn;
-    // }
+    if(val[x][21] != ""){
+     dateRtrn= Utilities.formatDate(val[x][21], "GMT", "MM/dd/yyyy")
+     val[x][21] = dateRtrn;
+    }
+    if(val[x][22] != ""){
+     dateRtrn= Utilities.formatDate(val[x][22], "GMT", "MM/dd/yyyy")
+     val[x][22] = dateRtrn;
+    }
+    if(val[x][25] != ""){
+     dateRtrn= Utilities.formatDate(val[x][25], "GMT", "MM/dd/yyyy")
+     val[x][25] = dateRtrn;
+    }
   }
-  //var ssZip = SpreadsheetApp.openById('14jVbrLUEPuSR5URhErZrCdMVDrlhiw-e38TnupsESFM');
-  //var sheetZip  = ssZip.getSheetByName('ACIzipcodes');
-  //var zipCodes = sheetZip.getDataRange().getValues();
-  //var dataObj = {hawb:val, zip: zipCodes}
   var dataObj = {hawb:val}
   var t = HtmlService.createTemplateFromFile('hawb1');
   // send data over into ui when html opens
@@ -74,12 +70,10 @@ function openHawbUpdate(hawbRowIndex) {
   return 'Opened';
 }
 
-function getHawbValues() {
-  // get sheet values afer a update or add ?? change to getActiveSpreadsheet()
-  var ss = SpreadsheetApp.openById('1vuOosXxRDHVlfVmU52w9sDG1-jOEiwBZrAnkVBNipwc');
+function getHawbValues() { 
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getActiveSheet();
   var val = sheet.getDataRange().getValues();
-    // reformat dates on sheet into data
   for(x=1;x<val.length;x++){
     Logger.log(val[x][21])
     if(val[x][0] != ""){
@@ -100,7 +94,7 @@ function getHawbValues() {
       dateRtrn= Utilities.formatDate(val[x][25], "GMT", "MM/dd/yyyy")
       val[x][25] = dateRtrn;
     }
-  }
+  }  
   return JSON.stringify(val);
 }
 

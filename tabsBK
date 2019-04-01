@@ -52,7 +52,6 @@ function updateAssesHawbSel(callback) {
 }
 
 function fillAsses(callback) {
-    console.log(hawbSel.hawb[0][12] + "0,12")
     if(hawbSel.hawb[0][12] != "") {document.getElementById('spd').checked = true;}
         else{document.getElementById('spd').checked = false;}
     if(hawbSel.hawb[0][13] != "" ) {document.getElementById('2man').checked = true;}

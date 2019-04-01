@@ -1,0 +1,271 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script>
+      var hawbsgs = <?!= JSON.stringify(data) ?>;
+
+    </script>
+    <style>
+        .tab {
+            display: inline-block;
+            width: 50px;
+            border: 1px solid black;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            padding: 5px;
+            padding-left: 7px;
+            background-color: lightskyblue;
+        }
+        .title {
+            font-size: 2em;
+            padding-left: 20px;
+        }
+        #divtabs {
+            border: 1px solid, black;
+        }
+
+        .display {
+            display: block;
+            visibility: visible;
+        }
+
+        .hidden {
+            display: none;
+            visibility: visible;
+        }
+        .selected {
+            background-color: lightgrey;
+        }
+        .hawbrow{
+         width:100px;
+         color: blue;
+         text-decoration: underline;
+
+        }
+        td, th {
+         border: 1px solid black;
+         padding: 5px;
+        }
+        div {
+         padding: 2px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="divtabs">
+        <div id="header" class="title">LAX HAWB App</div>
+        <div id="tab1" class="tab selected" onclick="tabClicked(1)" >Home</div>
+        <div id="tab2" class="tab" onclick="tabClicked(2)">Assesor</div>
+        <div id="tab3" class="tab" onclick="tabClicked(3)">Routing</div>
+        <div id="tab4" class="tab" onclick="tabClicked(4)">Costs</div>
+    </div>
+    <div id="divtab1" class="display">Hawb:
+      <input id= 'hawbIn' type="text" class= "smallInput" onkeyup="findHawb()" onfocus= "checkForUpdate()" >
+      <div id = "divtab1_2"></div>
+    </div>
+    <div id="divtab2" class="hidden">Select
+
+    </div>
+    <div id="divtab3" class="hidden">Cartage
+
+    </div>
+    <div id="divtab4" class="hidden">Cost Sheet
+
+    </div>
+    <div>&copy Robert Lowell Brown 2018, 2019</div>
+
+
+    <script>
+        var tab1 = document.getElementById('tab1');
+        var tab2 = document.getElementById('tab2');
+        var tab3 = document.getElementById('tab3');
+        var tab4 = document.getElementById('tab4');
+        var divtab1 = document.getElementById('divtab1');
+        var divtab2 = document.getElementById('divtab2');
+        var divtab3 = document.getElementById('divtab3');
+        var divtab4 = document.getElementById('divtab4');
+        var hawbIn = document.getElementById('hawbIn');
+        var qStr = "";
+
+        function tabClicked(tabClicked) {
+            // show tab div on click
+            switch(tabClicked) {
+                case 1:
+                    divtab1.classList.add('display');
+                    divtab1.classList.remove('hidden');
+                    divtab2.classList.add('hidden');
+                    divtab3.classList.add('hidden');
+                    divtab4.classList.add('hidden');
+                    tab1.classList.add('selected');
+                    tab2.classList.remove('selected');
+                    tab3.classList.remove('selected');
+                    tab4.classList.remove('selected');
+                    break;
+                case 2:
+                    divtab1.classList.add('hidden');
+                    divtab2.classList.add('display');
+                    divtab2.classList.remove('hidden');
+                    divtab3.classList.add('hidden');
+                    divtab4.classList.add('hidden');
+                    tab2.classList.add('selected');
+                    tab1.classList.remove('selected');
+                    tab3.classList.remove('selected');
+                    tab4.classList.remove('selected');
+                    break;
+                case 3:
+                    divtab1.classList.add('hidden');
+                    divtab2.classList.add('hidden');
+                    divtab3.classList.remove('hidden');
+                    divtab3.classList.add('display');
+                    divtab4.classList.add('hidden');
+                    tab3.classList.add('selected');
+                    tab1.classList.remove('selected');
+                    tab2.classList.remove('selected');
+                    tab4.classList.remove('selected');
+                    break;
+                case 4:
+                    divtab1.classList.add('hidden');
+                    divtab2.classList.add('hidden');
+                    divtab4.classList.remove('hidden');
+                    divtab3.classList.add('hidden');
+                    divtab4.classList.add('display');
+                    tab4.classList.add('selected');
+                    tab1.classList.remove('selected');
+                    tab2.classList.remove('selected');
+                    tab3.classList.remove('selected');
+                    break;
+
+            }
+        }
+
+        function checkForUpdate() {
+        // run a function on code.gs to retrieve hawbs from spreadsheet and replace hawb in hawbgs onFocus
+          google.script.run.withSuccessHandler(updateHawb).getHawbValues();
+        }
+
+        function updateHawb(jsonArr) {
+          // use value returned and either replace hawb
+          var hawb = JSON.parse(jsonArr)
+          //console.log(hawb)
+          hawbsgs.hawb = hawb;
+        }
+
+        function findHawb() {
+          var input = document.getElementById('hawbIn').value;
+          if(input.length > 3) {
+            var hawbRtrn = matchHawb(input);
+            var htmlTable = buildTable(hawbRtrn);
+            var divtab1_2 = document.getElementById('divtab1_2')
+            var divtab1 = document.getElementById('divtab1');
+            divtab1_2.innerHTML = htmlTable;
+          }
+        }
+
+        function matchHawb(hawb) {
+          // match string in hawbsgs.hawb
+          var hawbRowIndex= {}, hawbArr =[], rowIndex = [];
+          for(i=1;i< hawbsgs.hawb.length; i++) {
+           var stringVal = hawbsgs.hawb[i][3].toString().toUpperCase();
+            if(stringVal.indexOf(hawb.toUpperCase()) != -1) {
+             var index = stringVal.indexOf(hawb.toUpperCase())
+             hawbArr.push(hawbsgs.hawb[i])
+             rowIndex.push([i+1,i])
+            }
+           }
+           hawbRowIndex= {hawb: hawbArr, rowIndex: rowIndex}
+           return hawbRowIndex
+        }
+
+        function buildTable(hawbRowObj) {
+        // check hawbRowObj.hawb.length <1 1st if yes put up enter new button
+        if(hawbRowObj.hawb.length <1){
+          var hawbTable = "<table><tr><th>Action</th></tr>"
+          hawbTable += "<tr><td><button onClick= 'createNew()' >Create New</button></td></tr></table>"
+        }else {
+
+          // else build table from list of hawbs sent over
+          var hawbTable = "<table><tr><th>HAWB</th><th>Row</th><th>ACI</th></tr>"
+          for(x=0;x<hawbRowObj.hawb.length;x++) {
+                    hawbTable += "<tr><td class='hawbrow' onClick= 'hawbSelected(this)'>" + hawbRowObj.hawb[x][3] + "</td><td>" + hawbRowObj.rowIndex[x][0]
+                    hawbTable += "</td><td>" + hawbRowObj.hawb[x][6] + "</td>"
+                    hawbTable += "<td onClick= 'printPost(" + hawbRowObj.rowIndex[x][0] + " )'>Print</td> </tr>"
+          }
+          hawbTable += "</table>"  ;
+        }
+          return hawbTable
+        }
+
+        function hawbSelected(tdData) {
+           //console.log(rowData.innerHTML.toString().toUpperCase())
+           var hawbData = matchHawb(tdData.innerHTML.toString().toUpperCase());
+           //hawbData.zip = hawbsgs.zip
+           console.log(hawbData)
+           var divtab1_2 = document.getElementById('divtab1_2')
+           divtab1_2.innerHTML = "<h2>Opening Doc Now</h2>";
+            // timer to clear Opening Doc Now
+            setTimeout(function() {divtab1_2.innerHTML = "";}, 5000);
+           // open model and send data command to code.gs
+
+           google.script.run.withSuccessHandler(onSuccess).openHawbUpdate(hawbData);
+
+         }
+
+         function createNew() {
+           var hawbEntry = document.getElementById('hawbIn').value
+           var hawbData = {hawb: hawbEntry}
+           // open hawbEntry.html to create a new HAWB into the spreadsheet
+           google.script.run.withSuccessHandler(onSuccess).openHawbEntry(hawbData);
+         }
+
+        function onSuccess(result) {
+          //function to handle success of updated ACI code Clear and reset sheet
+          //console.log(result);
+        }
+
+        function buildPostBody(hawb, callback) {
+            var h = hawb
+            console.log(h)
+            var postBody ={};
+            postBody.A = h[0], postBody.B = h[1], postBody.C = h[2], postBody.D = h[3], postBody.E = h[4];
+            postBody.F = h[5], postBody.G = h[6], postBody.H = h[7], postBody.I = h[8], postBody.J = h[9];
+            postBody.K = h[10], postBody.L = h[11], postBody.M = h[12], postBody.N = h[13], postBody.O = h[14];
+            postBody.P = h[15], postBody.Q = h[16], postBody.R = h[17], postBody.S = h[18], postBody.T = h[19];
+            postBody.U = h[20], postBody.V = h[21], postBody.W = h[22], postBody.X = h[23], postBody.Y = h[24];
+            postBody.Z = h[25], postBody.AA = h[26], postBody.AB = h[27], postBody.AC = h[28], postBody.AD = h[29];
+            postBody.AE = h[30], postBody.AF = h[31], postBody.AG = h[32], postBody.AH = h[33], postBody.AI = h[34];
+            postBody.AJ = h[35], postBody.AK = h[36], postBody.AL = h[37], postBody.AM = h[38], postBody.AN = h[39];
+            postBody.AO = h[40], postBody.AP = h[41], postBody.AQ = h[42], postBody.AR = h[43], postBody.AS1 = h[44], postBody.AT = h[45];
+            callback(postBody)
+        }
+
+        function printPost(row) {
+            var url = "https://lgltrax.lglship.com/printlgl";
+            var link = "https://lgltrax.lglship.com/printlgl";
+            buildPostBody(hawbsgs.hawb[(row-1)], function(body) {
+                // return the post body then send post request command
+                console.log(body)
+                sendPost(url, body, link);
+            })
+        }
+
+        function sendPost(url, body, link) {
+            var http = new XMLHttpRequest();
+            http.open("POST", url, true);
+            http.setRequestHeader('Content-Type', 'application/json');
+            http.send(JSON.stringify(body));
+            http.onreadystatechange = function() {
+                if(this.status == 200) {
+                    console.log(http.responseText)
+                    // now send print page request and open in blanktab WORK AROUND REQUIRED
+                    var divtab1_2 = document.getElementById('divtab1_2')
+                    var replaceTable = '<button><a href=' + link + ' target="_blank"> Printable Doc Prepared</a></button>'
+                    divtab1_2.innerHTML = replaceTable;
+                }else {
+                    console.log("failed")
+                }
+            }
+        }
+    </script>
+</body>
+</html>
