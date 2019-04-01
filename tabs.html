@@ -18,7 +18,7 @@ console.log("update hit")
 
 function updateNotesHawbSel(callback) {
 console.log("update hit")
-  hawbSel.hawb[0][39] = document.getElementById("notesdiv").value;
+  hawbSel.hawb[0][39] = document.getElementById("notes").value;
   hawbSel.hawb[0][9] = document.getElementById("billwt").value;
   callback()
 }
@@ -104,6 +104,7 @@ console.log("update hit")
   var buttonSave3 = document.getElementById("saveChanges3");
   notesDiv.value  = hawbSel.hawb[0][39];
   document.getElementById("billwt").value = hawbSel.hawb[0][9];
+  document.getElementById("notes").value = hawbSel.hawb[0][39];
 
   notesDiv.addEventListener('change', function(e){
     buttonSave3.removeAttribute("disabled");
