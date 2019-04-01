@@ -232,10 +232,8 @@
 
         function saveRoutingChanges(){
         // code to save routing tab input info into spreadsheet
-            console.log("SaveChanges")
             updateHawbvalues(function() {
-                // call saveA
-                console.log(hawbSel)
+                // call save
                 google.script.run.withSuccessHandler(onUpdateHawb1).updateSheet(hawbSel.hawb[0], hawbSel.rowIndex[0][0]);
          });
         }
@@ -244,14 +242,11 @@
         function askSave() {
           if(dirty == true){
           if (confirm('Save Changes? Cancel erases unsved changes all tabs')) {
-                console.log("SaveChanges")
                 updateHawbvalues(function() {
-                  console.log(hawbSel)
                   google.script.run.withSuccessHandler(onUpdateHawb1).updateSheet(hawbSel.hawb[0], hawbSel.rowIndex[0][0]);
                 })
            } else {
               // Do nothing!
-              console.log("DON'T SaveChanges")
               onCancelUpdate();
            }
           // set dirty to false again after yes or no answer
@@ -283,25 +278,25 @@
             buttonSave3.disabled = true;
             buttonSave3.classList.remove("bigred")
             dirty = false
-            console.log("buttons changed")
         }
 
          function onCancelUpdate(){
           //reset values in the tabs to hawb values then clear dirty status
           var tdData =  hawbSel.hawb[0][3];
-          console.log("onCancel:" + tdData)
-          hawbSelected(tdData)
+          hawbSelected(tdData);
             // set router and asses button to disabled
             var buttonSave = document.getElementById("saveChanges");
             buttonSave.disabled = true;
-            buttonSave.classList.remove("bigred")
+            buttonSave.classList.remove("bigred");
             var buttonSave2 = document.getElementById("saveChanges2");
             buttonSave2.disabled = true;
-            buttonSave2.classList.remove("bigred")
+            buttonSave2.classList.remove("bigred");
             var buttonSave3 = document.getElementById("saveChanges3");
             buttonSave3.disabled = true;
-            buttonSave3.classList.remove("bigred")
-            dirty = false
+            buttonSave3.classList.remove("bigred");
+            dirty = false;
+            document.getElementById("notesdiv").classList.add("hidden");
+            document.getElementById("notesdiv").classList.remove("display");
         }
 
         function tabClicked(tabClicked) {

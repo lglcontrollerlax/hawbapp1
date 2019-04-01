@@ -7,7 +7,6 @@
 <script>
 
 function updateRoutingHawbSel(callback) {
-console.log("update hit")
   hawbSel.hawb[0][37] = document.getElementById("cartage").value;
   hawbSel.hawb[0][32] = document.getElementById("recovery").value;
   hawbSel.hawb[0][33] = document.getElementById("recoverybill").value;
@@ -17,7 +16,6 @@ console.log("update hit")
 }
 
 function updateNotesHawbSel(callback) {
-console.log("update hit")
   hawbSel.hawb[0][39] = document.getElementById("notes").value;
   hawbSel.hawb[0][9] = document.getElementById("billwt").value;
   callback()
@@ -47,12 +45,10 @@ function updateAssesHawbSel(callback) {
         }else{hawbSel.hawb[0][31] = "Delete"}
         if(document.getElementById('jack').checked) {  hawbSel.hawb[0][40] = 'jack';
         }else{hawbSel.hawb[0][31] = "Delete"}
-
     callback()
 }
 
 function fillAsses(callback) {
-    console.log(hawbSel.hawb[0][12] + "0,12")
     if(hawbSel.hawb[0][12] != "") {document.getElementById('spd').checked = true;}
         else{document.getElementById('spd').checked = false;}
     if(hawbSel.hawb[0][13] != "" ) {document.getElementById('2man').checked = true;}
@@ -81,13 +77,11 @@ function fillAsses(callback) {
         buttonSave2.removeAttribute("disabled");
         buttonSave2.classList.add("bigred")
         dirty = true;
-        console.log(dirty)
    });
     callback();
 }
 
 function fillRoutingHawbSel(callback) {
-console.log("update hit")
   document.getElementById("cartage").value = hawbSel.hawb[0][37];
   document.getElementById("recovery").value = hawbSel.hawb[0][32];
   document.getElementById("recoverybill").value = hawbSel.hawb[0][33];
