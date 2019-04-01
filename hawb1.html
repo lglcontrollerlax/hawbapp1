@@ -225,6 +225,7 @@
         var divtab3 = document.getElementById('divtab3');
         var divtab4 = document.getElementById('divtab4');
         var hawbIn = document.getElementById('hawbIn');
+        var textDiv = document.getElementById("notesdiv")
         var qStr = "";
         var hawbSel = "";
         var dirty = false
@@ -307,6 +308,8 @@
             // show tab div on click
             switch(tabClicked) {
                 case 1:
+                    textDiv.classList.remove('hidden');
+                    textDiv.classList.add('display');
                     divtab1.classList.add('display');
                     divtab1.classList.remove('hidden');
                     divtab2.classList.add('hidden');
@@ -318,6 +321,8 @@
                     tab4.classList.remove('selected');
                     break;
                 case 2:
+                    textDiv.classList.remove('display');
+                    textDiv.classList.add('hidden');
                     divtab1.classList.add('hidden');
                     divtab2.classList.add('display');
                     divtab2.classList.remove('hidden');
@@ -329,6 +334,8 @@
                     tab4.classList.remove('selected');
                     break;
                 case 3:
+                    textDiv.classList.remove('display');
+                    textDiv.classList.add('hidden');
                     divtab1.classList.add('hidden');
                     divtab2.classList.add('hidden');
                     divtab3.classList.remove('hidden');
@@ -340,6 +347,8 @@
                     tab4.classList.remove('selected');
                     break;
                 case 4:
+                    textDiv.classList.remove('display');
+                    textDiv.classList.add('hidden');
                     divtab1.classList.add('hidden');
                     divtab2.classList.add('hidden');
                     divtab4.classList.remove('hidden');
