@@ -70,7 +70,7 @@ function openHawbUpdate(hawbRowIndex) {
   return 'Opened';
 }
 
-function getHawbValues() { 
+function getHawbValues() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getActiveSheet();
   var val = sheet.getDataRange().getValues();
@@ -94,7 +94,7 @@ function getHawbValues() {
       dateRtrn= Utilities.formatDate(val[x][25], "GMT", "MM/dd/yyyy")
       val[x][25] = dateRtrn;
     }
-  }  
+  }
   return JSON.stringify(val);
 }
 
@@ -121,6 +121,15 @@ function updateSheet(rowData, row) {
 }
 
 function getInHouse() {
+    // get inhouse sheet cost data and send over in object array
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName("In House Sheet")
+  var val = sheet.getDataRange().getValues();
+
+  return JSON.stringify(val);
+}
+
+function getTeam() {
     // get inhouse sheet cost data and send over in object array
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getSheetByName("In House Sheet")

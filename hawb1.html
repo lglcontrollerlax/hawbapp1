@@ -211,6 +211,7 @@
     </div>
     <div id="divtab4" class="hidden">
         <button onclick="loadInHouse()" >Load InHouse</button>
+        <button onclick="loadTeam()" >Load Team</button>
 
     </div>
   </div>
@@ -241,10 +242,15 @@
 
         function loadInHouse() {
             // load current inhouse data sheet set to auto later with hawbdatags
-            google.script.run.withSuccessHandler(inHouseData).getInHouse();
+            google.script.run.withSuccessHandler(sheetData).getInHouse();
         };
 
-        function inHouseData(sheetData) {
+        function loadTeam() {
+            // load current inhouse data sheet set to auto later with hawbdatags
+            google.script.run.withSuccessHandler(sheetData).getTeam();
+        };
+
+        function sheetData(sheetData) {
             console.log(sheetData);
         }
 
