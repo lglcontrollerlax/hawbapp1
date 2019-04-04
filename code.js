@@ -123,18 +123,19 @@ function updateSheet(rowData, row) {
 function getInHouse() {
     // get inhouse sheet cost data and send over in object array
   var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ss.getSheetByName("In House Sheet")
-  var val = sheet.getDataRange().getValues();
+  var sheetInHouse = ss.getSheetByName("In House Sheet")
+  var valInHouse = sheetInHouse.getDataRange().getValues();
 
-  return JSON.stringify(val);
+  return JSON.stringify(valInHouse);
 }
 
 function getTeam() {
     // get inhouse sheet cost data and send over in object array
   var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ss.getSheetByName("In House Sheet")
-  var val = sheet.getDataRange().getValues();
+  var sheetTeam = ss.getSheetByName("In House Sheet")
+  var valTeam = sheetTeam.getDataRange().getValues();
 
-  return JSON.stringify(val);
+  return JSON.stringify(valTeam);
 }
+
 
