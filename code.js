@@ -12,6 +12,7 @@ function include(filename) {
       .getContent();
 }
 
+
 function getSheetData() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getActiveSheet();
@@ -36,7 +37,11 @@ function getSheetData() {
      val[x][25] = dateRtrn;
     }
   }
-  var dataObj = {hawb:val}
+  var sheetTeam = ss.getSheetByName("In House Sheet")
+  var valTeam = sheetTeam.getDataRange().getValues();
+  var sheetInHouse = ss.getSheetByName("In House Sheet")
+  var valInHouse = sheetInHouse.getDataRange().getValues();
+  var dataObj = {hawb:val, sheetTeam:valTeam, sheetInHouse:valInHouse }
   var t = HtmlService.createTemplateFromFile('hawb1');
   // send data over into ui when html opens
   t.data = dataObj
