@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <script>
-      //var hawbsgs = <?!= JSON.stringify(data) ?>;
+      var hawbsgs = <?!= JSON.stringify(data) ?>;
 
     </script>
     <style>
@@ -209,20 +209,22 @@
         </div>
       </div>
     </div>
-    <div id="divtab4" class="hidden">
+    <div id="divtab4" class="hidden" onclick="loadCostTab()">
         <button onclick="loadInHouse()" >Load InHouse</button>
         <button onclick="loadTeam()" >Load Team</button><br>
             <!-- show type and then select what aci codes and data to show -->
-        <label for="billwt2"  >Billable wt.</label>
-        <input type="text" class= "routeinp" id= "billwt2" name= "billwt2"><br>
-        <label for="rcfwt"  >RCF Weight</label>
-        <input type="text" class= "routeinp" id= "rcfwt" name= "rcfwt"><br>
-        <label for="acideliv"  >Deliv ACI</label>
-        <input type="text" class= "routeinp" id= "acideliv" name= "acideliv"><br>
-        <label for="acipup">Pickup ACI</label>
-        <input type="text" class= "routeinp" id= "acipup" name= "acideliv"><br>
-        <label for="pupstring">Pickup String</label>
-        <input type="text" class= "routeinp" id= "pupstring" name= "pupstring">
+        <label for="costtype"  >Shipment Type</label>
+        <input type="text" class= "routeinp" id= "costtype" name= "costtype"><br>
+        <label for="costbillwt2"  >Billable wt.</label>
+        <input type="text" class= "routeinp" id= "costbillwt2" name= "costbillwt2"><br>
+        <label for="costrcfwt"  >RCF Weight</label>
+        <input type="text" class= "routeinp" id= "costrcfwt" name= "costrcfwt"><br>
+        <label for="costacideliv"  >Deliv ACI</label>
+        <input type="text" class= "routeinp" id= "costacideliv" name= "costacideliv"><br>
+        <label for="costacipup">Pickup ACI</label>
+        <input type="text" class= "routeinp" id= "costacipup" name= "costacideliv"><br>
+        <label for="costpupstring">Pickup String</label>
+        <input type="text" class= "routeinp" id= "costpupstring" name= "costpupstring">
 
 
     </div>
@@ -264,6 +266,22 @@
 
         function sheetData(sheetData) {
             console.log(sheetData);
+        }
+
+        function loadCostTab() {
+            // load info into cost tab when Clicked
+            var costType = document.getElementById("costtype");
+            var delAci = document.getElementById("costacideliv");
+            var pupString = document.getElementById("costpupstring");
+            var pupAci = document.getElementById("costacipup");
+            var rcfWt = document.getElementById("costrcfwt");
+            var billWt = document.getElementById("costbillwt2");
+            costType.value = hawbsgs.hawb[1][4]
+            delAci.value = hawbsgs.hawb[1][6]
+            pupString.value = hawbsgs.hawb[1][4]
+            pupAci.value = hawbsgs.hawb[1][8]
+            rcfWt.value = hawbsgs.hawb[1][9]
+            billWt.value = hawbsgs.hawb[1][9]
         }
 
 
@@ -381,6 +399,7 @@
                     tab1.classList.remove('selected');
                     tab2.classList.remove('selected');
                     tab3.classList.remove('selected');
+                    loadCostTab();
                     break;
 
             }
