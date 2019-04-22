@@ -37,7 +37,7 @@ function getSheetData() {
      val[x][25] = dateRtrn;
     }
   }
-  var sheetTeam = ss.getSheetByName("In House Sheet")
+  var sheetTeam = ss.getSheetByName("LaxTeamSheet")
   var valTeam = sheetTeam.getDataRange().getValues();
   var sheetInHouse = ss.getSheetByName("In House Sheet")
   var valInHouse = sheetInHouse.getDataRange().getValues();
