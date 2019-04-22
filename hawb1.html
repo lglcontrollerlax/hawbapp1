@@ -224,9 +224,11 @@
         <label for="costacipup">Pickup ACI</label>
         <input type="text" class= "routeinp" id= "costacipup" name= "costacideliv"><br>
         <label for="costpupstring">Pickup String</label>
-        <input type="text" class= "routeinp" id= "costpupstring" name= "costpupstring">
+        <input type="text" class= "routeinp" id= "costpupstring" name= "costpupstring"><br>
         <label for="costwtcharge">Weight Charge</label>
-        <input type="text" class= "routeinp" id= "costwtcharge" name= "costwtcharge">
+        <input type="text" class= "routeinp" id= "costwtcharge" name= "costwtcharge"><br>
+        <label for="costfsc">FSC</label>
+        <input type="text" class= "routeinp" id= "costfsc" name= "costfsc"><br>
 
 
     </div>
@@ -281,12 +283,15 @@
             var rcfWt = document.getElementById("costrcfwt");
             var billWt = document.getElementById("costbillwt2");
             var costWtCharge = document.getElementById("costwtcharge");
+            var costFsc = document.getElementById("costfsc");
             costType.value = hawbSel.hawb[0][4];
             delAci.value = hawbSel.hawb[0][6];
             pupString.value = hawbSel.hawb[0][4];
             pupAci.value = hawbSel.hawb[0][8];
             rcfWt.value = hawbSel.hawb[0][9];
-            billWt.value = wtCharge;
+            billWt.value = hawbSel.hawb[0][9];
+            costWtCharge.value = wtCharge;
+            costFsc.value = wtCharge * hawbsgs.sheetTeam[2][2]
         }
 
         function calcWtCharge(type, delaci, pupaci, billwt) {
@@ -322,28 +327,32 @@
             }
 
             if(billwt < 211) {
-                col = "B";
+                col = 1;
             }else if(billwt > 211 && billwt < 1000) {
-                col = "C";
+                col = 2;
             }else if(billwt > 1000 && billwt < 2000) {
-                col = "D";
+                col = 3;
             }else if(billwt > 2000 && billwt < 5000) {
-                col = "E";
+                col = 4;
             }else if(billwt > 5000) {
-                col = "G";
+                col = 6;
             }
 
             // retrieve min cost or wt factor
-            if(col =="B") {
+            if(col == 1) {
                 wtCharge = hawbsgs.sheetTeam[row][col];
+                console.log(hawbsgs.sheetTeam[row][col])
                 return wtCharge;
             }else {
                 var wtFactor = (hawbsgs.sheetTeam[row][col]/100);
+                console.log(hawbsgs.sheetTeam[row][col]/100)
                 wtCharge = billwt * wtFactor
                 // put in check against minimum on under 1000L
-                if(wtCharge < hawbsgs.sheetTeam[row]["B"]) {
-                    wtCharge = hawbsgs.sheetTeam[row]["B"];
+                if(wtCharge < hawbsgs.sheetTeam[row][1]) {
+                    wtCharge = hawbsgs.sheetTeam[row][1];
                     return wtCharge;
+                }else {
+                    return wtCharge
                 }
             }
         }
