@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <script>
-      var hawbsgs = <?!= JSON.stringify(data) ?>;
+      //var hawbsgs = <?!= JSON.stringify(data) ?>;
 
     </script>
     <style>
@@ -225,6 +225,8 @@
         <input type="text" class= "routeinp" id= "costacipup" name= "costacideliv"><br>
         <label for="costpupstring">Pickup String</label>
         <input type="text" class= "routeinp" id= "costpupstring" name= "costpupstring">
+        <label for="costwtcharge">Weight Charge</label>
+        <input type="text" class= "routeinp" id= "costwtcharge" name= "costwtcharge">
 
 
     </div>
@@ -269,6 +271,8 @@
         }
 
         function loadCostTab() {
+            //send cost type, delaci, pupaci, billwt to gatherSheetData
+            var wtCharge = calcWtCharge(hawbSel.hawb[0][4], hawbSel.hawb[0][6], hawbSel.hawb[0][8], hawbSel.hawb[0][9]);
             // load info into cost tab when Clicked
             var costType = document.getElementById("costtype");
             var delAci = document.getElementById("costacideliv");
@@ -276,13 +280,76 @@
             var pupAci = document.getElementById("costacipup");
             var rcfWt = document.getElementById("costrcfwt");
             var billWt = document.getElementById("costbillwt2");
-            costType.value = hawbsgs.hawb[1][4]
-            delAci.value = hawbsgs.hawb[1][6]
-            pupString.value = hawbsgs.hawb[1][4]
-            pupAci.value = hawbsgs.hawb[1][8]
-            rcfWt.value = hawbsgs.hawb[1][9]
-            billWt.value = hawbsgs.hawb[1][9]
+            var costWtCharge = document.getElementById("costwtcharge");
+            costType.value = hawbSel.hawb[0][4];
+            delAci.value = hawbSel.hawb[0][6];
+            pupString.value = hawbSel.hawb[0][4];
+            pupAci.value = hawbSel.hawb[0][8];
+            rcfWt.value = hawbSel.hawb[0][9];
+            billWt.value = wtCharge;
         }
+
+        function calcWtCharge(type, delaci, pupaci, billwt) {
+            var row;
+            var col;
+            var wtCharge;
+            // do cost calcs after gathering sheet tdData
+            //determine sheet row from aci and billWt
+            if(type== "D"){
+                switch(delaci) {
+                    case "A":
+                        row = 4;
+                        break;
+                    case "B":
+                        row = 5;
+                        break;
+                    case "C":
+                        row = 6;
+                        break;
+                }
+            }else {
+                switch(pupaci) {
+                    case "A":
+                        row = 4;
+                        break;
+                    case "B":
+                        row = 5;
+                        break;
+                    case "C":
+                        row = 6;
+                        break;
+                }
+            }
+
+            if(billwt < 211) {
+                col = "B";
+            }else if(billwt > 211 && billwt < 1000) {
+                col = "C";
+            }else if(billwt > 1000 && billwt < 2000) {
+                col = "D";
+            }else if(billwt > 2000 && billwt < 5000) {
+                col = "E";
+            }else if(billwt > 5000) {
+                col = "G";
+            }
+
+            // retrieve min cost or wt factor
+            if(col =="B") {
+                wtCharge = hawbsgs.sheetTeam[row][col];
+                return wtCharge;
+            }else {
+                var wtFactor = (hawbsgs.sheetTeam[row][col]/100);
+                wtCharge = billwt * wtFactor
+                // put in check against minimum on under 1000L
+                if(wtCharge < hawbsgs.sheetTeam[row]["B"]) {
+                    wtCharge = hawbsgs.sheetTeam[row]["B"];
+                    return wtCharge;
+                }
+            }
+        }
+
+
+
 
 
         function askSave() {
@@ -399,7 +466,6 @@
                     tab1.classList.remove('selected');
                     tab2.classList.remove('selected');
                     tab3.classList.remove('selected');
-                    loadCostTab();
                     break;
 
             }
@@ -489,6 +555,7 @@
             fillAsses(function() {
               document.getElementById("activehawbasses").innerHTML = "Active HAWB: <h3><i>" + tdData.toString().toUpperCase() + "</i></h3>";
             });
+            loadCostTab();
          }
 
          function createNew() {
