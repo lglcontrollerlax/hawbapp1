@@ -209,7 +209,7 @@
         </div>
       </div>
     </div>
-    <div id="divtab4" class="hidden" onclick="loadCostTab()">
+    <div id="divtab4" class="hidden" >
         <button onclick="loadInHouse()" >Load InHouse</button>
         <button onclick="loadTeam()" >Load Team</button><br>
             <!-- show type and then select what aci codes and data to show -->
@@ -291,7 +291,8 @@
             rcfWt.value = hawbSel.hawb[0][9];
             billWt.value = hawbSel.hawb[0][9];
             costWtCharge.value = wtCharge;
-            costFsc.value = wtCharge * hawbsgs.sheetTeam[2][2]
+            var teamFsc = wtCharge * hawbsgs.sheetTeam[2][2]
+            costFsc.value = teamFsc.toFixed(2)
         }
 
         function calcWtCharge(type, delaci, pupaci, billwt) {
@@ -355,6 +356,12 @@
                     return wtCharge
                 }
             }
+        }
+
+        function calcAsses(){
+            // get checked assesorials and return costs array
+            var lg = hawbSel.hawb[0][14], spd = hawbSel.hawb[0][12], ind = hawbSel.hawb[0][15], upk = hawbSel.hawb[0][18],
+                pac = hawbSel.hawb[0][28], man2 = hawbSel.hawb[0][13], wtime = hawbSel.hawb[0][17], atm = hawbSel.hawb[0][16]
         }
 
 
