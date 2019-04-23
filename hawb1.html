@@ -364,7 +364,8 @@
             var asses = [];
             // get checked assesorials and return costs array
             var lg = hawbSel.hawb[0][14], spd = hawbSel.hawb[0][12], ind = hawbSel.hawb[0][15], upk = hawbSel.hawb[0][18],
-                pac = hawbSel.hawb[0][28], man2 = hawbSel.hawb[0][13], wtime = hawbSel.hawb[0][17], atm = hawbSel.hawb[0][16]
+                pac = hawbSel.hawb[0][28], man2 = hawbSel.hawb[0][13], wtime = hawbSel.hawb[0][17], atm = hawbSel.hawb[0][16],
+                wtime = hawbSel.hawb[0][17]
             
             if(lg != "") { asses.push(25)}else {asses.push(0);};
 
@@ -400,6 +401,17 @@
                 var costpac;
                 costpac = (hawbSel.hawb[0][9] > 300 ? 50 : 25 ); // if less than 300lbs make it 25
                 asses.push(costpac.toFixed(2));
+            }else  {asses.push(0);};
+
+            if(wtime > 0) {
+                var costwtime = (wtime/60) * 40
+                assess.push(costwtime)
+            }else  {asses.push(0);};
+
+            if(atm != "") {
+                var costatm = calcWtCharge();
+                // write code to check for minumum after dividing
+                asses.push(costatm/2)
             }else  {asses.push(0);};
 
 
