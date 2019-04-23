@@ -372,15 +372,18 @@
                 //choose aci p or d   deliv or all others not both yet
                 var aci;
                 if(hawbSel.hawb[0][4] == "D") {aci = hawbSel.hawb[0][6];  }else {aci = hawbSel.hawb[0][8]; }     
-                if(aci == "A")  {asses.push(hawbsgs.sheetTeam[17][1]);
-                }else if(aci == "B")  {asses.push(hawbsgs.sheetTeam[18][1]);
-                }else if(aci == "C")  {asses.push(hawbsgs.sheetTeam[19][1]);
+                if(aci == "A")  {asses.push(hawbsgs.sheetTeam[18][1]);
+                }else if(aci == "B")  {asses.push(hawbsgs.sheetTeam[19][1]);
+                }else if(aci == "C")  {asses.push(hawbsgs.sheetTeam[20][1]);
                 }else {asses.push(0);
                 }
+            }
             
-            if(ind != "") {  }
-
-
+            if(ind != "") { 
+                var indcst = hawbSel.hawb[0][9] * .02
+                indcst = (indcst > 4 ? indcst : 4.00 ) // if less than 4 make it 4
+                
+                  }
 
             return asses;
         }
