@@ -366,7 +366,7 @@
             var lg = hawbSel.hawb[0][14], spd = hawbSel.hawb[0][12], ind = hawbSel.hawb[0][15], upk = hawbSel.hawb[0][18],
                 pac = hawbSel.hawb[0][28], man2 = hawbSel.hawb[0][13], wtime = hawbSel.hawb[0][17], atm = hawbSel.hawb[0][16]
             
-            if(lg != "") { asses.push(25)};
+            if(lg != "") { asses.push(25)}else {asses.push(0);};
 
             if(spd != "") { 
                 //choose aci p or d   deliv or all others not both yet
@@ -375,15 +375,33 @@
                 if(aci == "A")  {asses.push(hawbsgs.sheetTeam[18][1]);
                 }else if(aci == "B")  {asses.push(hawbsgs.sheetTeam[19][1]);
                 }else if(aci == "C")  {asses.push(hawbsgs.sheetTeam[20][1]);
-                }else {asses.push(0);
-                }
-            }
+                }else {asses.push(0);}
+
+            }else {asses.push(0);}
             
             if(ind != "") { 
-                var indcst = hawbSel.hawb[0][9] * .02
-                indcst = (indcst > 4 ? indcst : 4.00 ) // if less than 4 make it 4
-                
-                  }
+                var indcst = hawbSel.hawb[0][9] * .02;
+                indcst = (indcst > 4 ? indcst : 4.00 ); // if less than 4 make it 4
+                asses.push(indcst.toFixed(2));
+            }else  {asses.push(0);};
+
+            if(man2 != "") { 
+                var cost2man = 35;
+                asses.push(cost2man.toFixed(2));
+            }else  {asses.push(0);};
+
+            if(upk != "") { 
+                var costupk;
+                costupk = (hawbSel.hawb[0][9] > 300 ? 50 : 25 ); // if less than 300lbs make it 25
+                asses.push(costupk.toFixed(2));
+            }else  {asses.push(0);};
+
+            if(pac != "") { 
+                var costpac;
+                costpac = (hawbSel.hawb[0][9] > 300 ? 50 : 25 ); // if less than 300lbs make it 25
+                asses.push(costpac.toFixed(2));
+            }else  {asses.push(0);};
+
 
             return asses;
         }
