@@ -87,6 +87,7 @@
 
       <div>&copy Robert Lowell Brown 2018, 2019</div>
       <div id = "divtab1_2"></div>
+      <button  onClick= "storehawbs()">Store Hawbs</button>
       <!-- code for tab 1 -->
         <div id="notesdiv" class= "hidden" >
             <label for="billwt">Billable WT: </label>
@@ -662,6 +663,16 @@
         function selectChange(value, element) {
           document.getElementById(element).value = value;
         }
+
+
+        function storehawbs() {
+          google.script.run.withSuccessHandler(onStored).storeHawb();
+        }
+
+        function onStored(){
+          console.log("storedHawbs")
+        }
+
     </script>
     <!-- include the html file tabs which has js code in it for the tabs -->
     <?!= include('tabs'); ?>

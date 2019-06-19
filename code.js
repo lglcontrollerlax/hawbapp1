@@ -143,4 +143,36 @@ function getTeam() {
   return JSON.stringify(valTeam);
 }
 
+function storeHawb() {
+  // Store 500 hawb at a time to shorten the spreadsheet
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getActiveSheet();
+  var val = sheet.getDataRange().getValues();
+ // reformat dates on sheet into data
+  // for(x=1;x<val.length;x++){
+
+  //   if(val[x][0] != ""){
+  //     dateRtrn= Utilities.formatDate(val[x][0], "GMT", "MM/dd/yyyy")
+  //     val[x][0] = dateRtrn;
+  //   }
+  //   if(val[x][21] != ""){
+  //    dateRtrn= Utilities.formatDate(val[x][21], "GMT", "MM/dd/yyyy")
+  //    val[x][21] = dateRtrn;
+  //   }
+  //   if(val[x][22] != ""){
+  //    dateRtrn= Utilities.formatDate(val[x][22], "GMT", "MM/dd/yyyy")
+  //    val[x][22] = dateRtrn;
+  //   }
+  //   if(val[x][25] != ""){
+  //    dateRtrn= Utilities.formatDate(val[x][25], "GMT", "MM/dd/yyyy")
+  //    val[x][25] = dateRtrn;
+  //   }
+  // }
+
+  // check the lengthe of sheet
+  logger.log(val.length)
+return "success"
+
+}
+
 
