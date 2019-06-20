@@ -149,30 +149,99 @@ function storeHawb() {
   var sheet = ss.getActiveSheet();
   var val = sheet.getDataRange().getValues();
  // reformat dates on sheet into data
-  // for(x=1;x<val.length;x++){
+  for(x=1;x<val.length;x++){
 
-  //   if(val[x][0] != ""){
-  //     dateRtrn= Utilities.formatDate(val[x][0], "GMT", "MM/dd/yyyy")
-  //     val[x][0] = dateRtrn;
-  //   }
-  //   if(val[x][21] != ""){
-  //    dateRtrn= Utilities.formatDate(val[x][21], "GMT", "MM/dd/yyyy")
-  //    val[x][21] = dateRtrn;
-  //   }
-  //   if(val[x][22] != ""){
-  //    dateRtrn= Utilities.formatDate(val[x][22], "GMT", "MM/dd/yyyy")
-  //    val[x][22] = dateRtrn;
-  //   }
-  //   if(val[x][25] != ""){
-  //    dateRtrn= Utilities.formatDate(val[x][25], "GMT", "MM/dd/yyyy")
-  //    val[x][25] = dateRtrn;
-  //   }
-  // }
+    if(val[x][0] != ""){
+      dateRtrn= Utilities.formatDate(val[x][0], "GMT", "MM/dd/yyyy")
+      val[x][0] = dateRtrn;
+    }
+    if(val[x][21] != ""){
+     dateRtrn= Utilities.formatDate(val[x][21], "GMT", "MM/dd/yyyy")
+     val[x][21] = dateRtrn;
+    }
+    if(val[x][22] != ""){
+     dateRtrn= Utilities.formatDate(val[x][22], "GMT", "MM/dd/yyyy")
+     val[x][22] = dateRtrn;
+    }
+    if(val[x][25] != ""){
+     dateRtrn= Utilities.formatDate(val[x][25], "GMT", "MM/dd/yyyy")
+     val[x][25] = dateRtrn;
+    }
+  }
 
-  // check the lengthe of sheet
-  logger.log(val.length)
-return "success"
-
+  // archive storage logic here
+  if(val.length > 1200) {
+    var i = val.length - 1;
+    for(var x = 1; x<2; x++) {
+      buildPostBody(val[i], function(postBody) {
+        //Send body to sql to store
+        const url = "http://lgltrax.lglship.com/hawbstore"
+        Logger.log(postBody);
+        sendFetchApp(url, postBody, function(result){
+          if(result){
+           //Delete row logic here 
+           sheet.deleteRow(i);
+           i = i-1;
+          }else {
+            Logger.log("sqlerror");
+          }
+        });        
+      });
+    }
+  }
+  return "success"
 }
+
+function buildPostBody(hawb, callback) {
+  var h = hawb
+  var postBody ={};
+  postBody.A = h[0], postBody.B = h[1], postBody.C = h[2], postBody.D = h[3], postBody.E = h[4];
+  postBody.F = h[5], postBody.G = h[6], postBody.H = h[7], postBody.I = h[8], postBody.J = h[9];
+  postBody.K = h[10], postBody.L = h[11], postBody.M = h[12], postBody.N = h[13], postBody.O = h[14];
+  postBody.P = h[15], postBody.Q = h[16], postBody.R = h[17], postBody.S = h[18], postBody.T = h[19];
+  postBody.U = h[20], postBody.V = h[21], postBody.W = h[22], postBody.X = h[23], postBody.Y = h[24];
+  postBody.Z = h[25], postBody.AA = h[26], postBody.AB = h[27], postBody.AC = h[28], postBody.AD = h[29];
+  postBody.AE = h[30], postBody.AF = h[31], postBody.AG = h[32], postBody.AH = h[33], postBody.AI = h[34];
+  postBody.AJ = h[35], postBody.AK = h[36], postBody.AL = h[37], postBody.AM = h[38], postBody.AN = h[39];
+  postBody.AO = h[40], postBody.AP = h[41], postBody.AQ = h[42], postBody.AR = h[43], postBody.AS1 = h[44], postBody.AT = h[45];
+  callback(postBody)
+}
+
+function sendFetchApp(url, body, callback) {
+  var options = {
+    'method' : 'post',
+    'contentType': 'application/json',
+    // Convert the JavaScript object to a JSON string.
+    'payload' : JSON.stringify(body)
+  }; 
+  var response= UrlFetchApp.fetch(url, options);
+  var statusCode = response.getResponseCode();
+  Logger.log(statusCode)
+  callback(true)
+
+  // http.onreadystatechange = function() {
+  //     if(this.status == 200) {
+  //         Logger.log(http.responseText)
+  //         callback(true)
+  //     }else {
+  //         Logger.log("failed")
+  //         callback(false)
+  //     }
+  // }
+}
+
+// Make a POST request with a JSON payload.
+var data = {
+  'name': 'Bob Smith',
+  'age': 35,
+  'pets': ['fido', 'fluffy']
+};
+var options = {
+  'method' : 'post',
+  'contentType': 'application/json',
+  // Convert the JavaScript object to a JSON string.
+  'payload' : JSON.stringify(data)
+};
+UrlFetchApp.fetch('https://httpbin.org/post', options);
 
 
