@@ -70,6 +70,8 @@
         .assesinput {
             width: 40px;
         }
+
+        
     </style>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
@@ -87,7 +89,7 @@
 
       <div>&copy Robert Lowell Brown 2018, 2019</div>
       <div id = "divtab1_2"></div>
-      <button  onClick= "storehawbs()">Store Hawbs</button>
+      <button  id="archivebutton" onClick= "storehawbs()" >Archive 500 Hawbs</button>
       <!-- code for tab 1 -->
         <div id="notesdiv" class= "hidden" >
             <label for="billwt">Billable WT: </label>
@@ -267,6 +269,8 @@
         var qStr = "";
         var hawbSel = "";
         var dirty = false
+        
+        checkRowCount();
 
         function saveRoutingChanges(){
         // code to save routing tab input info into spreadsheet
@@ -670,7 +674,25 @@
         }
 
         function onStored(){
+          var element = document.querySelector("#archivebutton");
           console.log("storedHawbs")
+          element.style.display = "none"
+        }
+        
+        function checkRowCount() {
+         console.log(hawbsgs.hawb.length)
+         var element = document.querySelector("#archivebutton");
+         if(hawbsgs.hawb.length > 1300) {
+         console.log("Visible archive button")
+          //element.style.visibility = "visible"
+          //element.class.remove("hide");
+          element.style.display = "block"
+         }else {
+         console.log("Hidden class archive button")
+          //element.style.visibility = "hidden";
+          //element.class.remove("hide");
+          element.style.display = "none"
+         }   
         }
 
     </script>

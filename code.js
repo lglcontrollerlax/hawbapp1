@@ -143,10 +143,11 @@ function getTeam() {
   return JSON.stringify(valTeam);
 }
 
+
 function storeHawb() {
   // Store 500 hawb at a time to shorten the spreadsheet
   var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ss.getActiveSheet();
+  var sheet = ss.getSheets()[0];
   var val = sheet.getDataRange().getValues();
  // reformat dates on sheet into data
   for(x=1;x<val.length;x++){
@@ -170,17 +171,19 @@ function storeHawb() {
   }
 
   // archive storage logic here
-  if(val.length > 1200) {
-    var i = val.length - 1;
-    for(var x = 1; x<2; x++) {
+  if(val.length > 1300) {
+    var i = val.length-1;
+    for(var x = 1; x<50; x++) {
+      Logger.log(val[i]);
       buildPostBody(val[i], function(postBody) {
         //Send body to sql to store
-        const url = "http://lgltrax.lglship.com/hawbstore"
-        Logger.log(postBody);
+        const url = "https://lgltrax.lglship.com/storehawb"
         sendFetchApp(url, postBody, function(result){
+          Logger.log(result)
           if(result){
+            Logger.log(i)
            //Delete row logic here 
-           sheet.deleteRow(i);
+           sheet.deleteRow(i+1);
            i = i-1;
           }else {
             Logger.log("sqlerror");
@@ -207,6 +210,7 @@ function buildPostBody(hawb, callback) {
   callback(postBody)
 }
 
+
 function sendFetchApp(url, body, callback) {
   var options = {
     'method' : 'post',
@@ -216,32 +220,14 @@ function sendFetchApp(url, body, callback) {
   }; 
   var response= UrlFetchApp.fetch(url, options);
   var statusCode = response.getResponseCode();
+  var responseText = response.getContentText();
   Logger.log(statusCode)
-  callback(true)
-
-  // http.onreadystatechange = function() {
-  //     if(this.status == 200) {
-  //         Logger.log(http.responseText)
-  //         callback(true)
-  //     }else {
-  //         Logger.log("failed")
-  //         callback(false)
-  //     }
-  // }
+  Logger.log(responseText)
+     if(statusCode == 200) {
+         callback(true)
+     }else {
+         Logger.log("failed")
+         callback(false)
+     }
 }
-
-// Make a POST request with a JSON payload.
-var data = {
-  'name': 'Bob Smith',
-  'age': 35,
-  'pets': ['fido', 'fluffy']
-};
-var options = {
-  'method' : 'post',
-  'contentType': 'application/json',
-  // Convert the JavaScript object to a JSON string.
-  'payload' : JSON.stringify(data)
-};
-UrlFetchApp.fetch('https://httpbin.org/post', options);
-
 
