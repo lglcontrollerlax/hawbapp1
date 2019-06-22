@@ -90,6 +90,10 @@
       <div>&copy Robert Lowell Brown 2018, 2019</div>
       <div id = "divtab1_2"></div>
       <button  id="archivebutton" onClick= "storehawbs()" >Archive 500 Hawbs</button>
+      <br>
+      <br>
+      Search Archive for Older HAWB's   <br>
+      <input type="text" id="archivesearch" class="archivesearh" onkeyup="searchArchived()">
       <!-- code for tab 1 -->
         <div id="notesdiv" class= "hidden" >
             <label for="billwt">Billable WT: </label>
@@ -694,6 +698,59 @@
           element.style.display = "none"
          }   
         }
+
+        function searchArchived() {
+          var input = document.querySelector('#archivesearch').value;
+          console.log(input)
+          // take the keyup from input box and count then send to sql for array of matches
+          if(input.length > 3) {
+            var url = "https://lgltrax.lglship.com/searchstorehawb"
+            sendPostArchive(url, input, function(respArray) {
+             //Build table of results and display
+             //var archiveTable = archiveTable(respArray);
+             console.log(respArray) 
+             archiveTable = archiveTable(respArray);
+             var divtab1_2 = document.getElementById('divtab1_2')
+             divtab1_2.innerHTML = archiveTable;
+            });
+            
+
+          }
+       }
+
+      // temp add ajax code
+      function sendPostArchive(url, strtext, callback) {
+            var http = new XMLHttpRequest();
+            http.open("POST", url, true);
+            http.setRequestHeader('Content-Type', 'application/json');
+            http.send(JSON.stringify({hawb:strtext}));
+            http.onreadystatechange = function() {
+                if(this.status == 200 && this.readyState == 4) {
+                    //console.log(http.responseText)
+                      responseArr = JSON.parse(http.responseText);
+                      //console.log(responseArr)
+                      callback(responseArr);                   
+                }else if (this.status != 200) {
+                    console.log("failed")
+                    callback(["None Found"]);
+                }
+            }
+        }
+        
+        function archiveTable(respArray) {
+
+          // build table from list of hawbs sent over
+          var hawbTable = "<table><tr><th>(select)HAWB</th><th>Print</th><th>Update</th></tr>"
+          for(x=0;x<respArray.length;x++) {
+                    hawbTable += "<tr><td class='hawbrow fakelink' onClick= 'hawbSelected(this.innerText)'>" + respArray[x].D + "</td><td onClick= 'printPost(2 )'><a><i class="
+                    hawbTable += '"fakelink fas fa-print"></i></a></td><td  onClick= "hawbUpdate(' + "'" + respArray[x].D.toString().toUpperCase() + "'" + ')"><i class="fakelink fas fa-edit"></i>'
+                    hawbTable += "</td>"
+          }
+          hawbTable += "</table>";
+          return hawbTable;
+        }
+
+        
 
     </script>
     <!-- include the html file tabs which has js code in it for the tabs -->
