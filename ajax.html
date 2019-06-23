@@ -63,6 +63,13 @@
             })
         }
 
+        function printArchived(postBody) {
+            var url = "https://lgltrax.lglship.com/printlgl";
+            var link = "https://lgltrax.lglship.com/printlgl";
+ 
+                sendPost(url, postBody, link);
+        }
+
         function sendPost(url, body, link) {
             var http = new XMLHttpRequest();
             http.open("POST", url, true);

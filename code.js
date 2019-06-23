@@ -172,8 +172,8 @@ function storeHawb() {
 
   // archive storage logic here
   if(val.length > 1300) {
-    var i = val.length-1;
-    for(var x = 1; x<50; x++) {
+    var i = 1;
+    for(var x = 1; x<5; x++) {
       Logger.log(val[i]);
       buildPostBody(val[i], function(postBody) {
         //Send body to sql to store
@@ -184,7 +184,7 @@ function storeHawb() {
             Logger.log(i)
            //Delete row logic here 
            sheet.deleteRow(i+1);
-           i = i-1;
+           i = i + 1;
           }else {
             Logger.log("sqlerror");
           }

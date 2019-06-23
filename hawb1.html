@@ -707,9 +707,8 @@
             var url = "https://lgltrax.lglship.com/searchstorehawb"
             sendPostArchive(url, input, function(respArray) {
              //Build table of results and display
-             //var archiveTable = archiveTable(respArray);
              console.log(respArray) 
-             archiveTable = archiveTable(respArray);
+             var archiveTable = archivedTable(respArray);
              var divtab1_2 = document.getElementById('divtab1_2')
              divtab1_2.innerHTML = archiveTable;
             });
@@ -737,14 +736,38 @@
             }
         }
         
-        function archiveTable(respArray) {
+        function printArchived(postBody) {
+            var url = "https://lgltrax.lglship.com/printlgl";
+            var link = "https://lgltrax.lglship.com/printlgl";
+ 
+                sendPost(url, postBody, link);
+        }
+
+        function sendPost(url, body, link) {
+            var http = new XMLHttpRequest();
+            http.open("POST", url, true);
+            http.setRequestHeader('Content-Type', 'application/json');
+            http.send(JSON.stringify(body));
+            http.onreadystatechange = function() {
+                if(this.status == 200) {
+                    console.log(http.responseText)
+                    // now send print page request and open in blanktab WORK AROUND REQUIRED
+                    var divtab1_2 = document.getElementById('divtab1_2')
+                    var replaceTable = '<button><a href=' + link + ' target="_blank"> Printable Doc Prepared</a></button>'
+                    divtab1_2.innerHTML = replaceTable;
+                }else {
+                    console.log("failed")
+                }
+            }
+        }
+        
+        function archivedTable(respArray) {
 
           // build table from list of hawbs sent over
-          var hawbTable = "<table><tr><th>(select)HAWB</th><th>Print</th><th>Update</th></tr>"
+          var hawbTable = "<table><tr><th>(select)HAWB</th><th>Print</th></tr>"
           for(x=0;x<respArray.length;x++) {
-                    hawbTable += "<tr><td class='hawbrow fakelink' onClick= 'hawbSelected(this.innerText)'>" + respArray[x].D + "</td><td onClick= 'printPost(2 )'><a><i class="
-                    hawbTable += '"fakelink fas fa-print"></i></a></td><td  onClick= "hawbUpdate(' + "'" + respArray[x].D.toString().toUpperCase() + "'" + ')"><i class="fakelink fas fa-edit"></i>'
-                    hawbTable += "</td>"
+                    hawbTable += "<tr><td class='hawbrow'>" + respArray[x].D + "</td><td onClick= 'printArchived(" + JSON.stringify(respArray[x]) + ")'><a><i class="
+                    hawbTable += '"fakelink fas fa-print"></i></a></td>'
           }
           hawbTable += "</table>";
           return hawbTable;
