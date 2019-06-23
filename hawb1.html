@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <script>
-      //var hawbsgs = <?!= JSON.stringify(data) ?>;
+      var hawbsgs = <?!= JSON.stringify(data) ?>;
 
     </script>
     <style>
@@ -89,7 +89,7 @@
 
       <div>&copy Robert Lowell Brown 2018, 2019</div>
       <div id = "divtab1_2"></div>
-      <button  id="archivebutton" onClick= "storehawbs()" >Archive 500 Hawbs</button>
+      <button  id="archivebutton" onClick= "storehawbs()" >Archive 100 Hawbs</button>
       <br>
       <br>
       Search Archive for Older HAWB's   <br>
@@ -686,7 +686,7 @@
         function checkRowCount() {
          console.log(hawbsgs.hawb.length)
          var element = document.querySelector("#archivebutton");
-         if(hawbsgs.hawb.length > 1300) {
+         if(hawbsgs.hawb.length > 1050) {
          console.log("Visible archive button")
           //element.style.visibility = "visible"
           //element.class.remove("hide");
@@ -736,31 +736,7 @@
             }
         }
         
-        function printArchived(postBody) {
-            var url = "https://lgltrax.lglship.com/printlgl";
-            var link = "https://lgltrax.lglship.com/printlgl";
- 
-                sendPost(url, postBody, link);
-        }
 
-        function sendPost(url, body, link) {
-            var http = new XMLHttpRequest();
-            http.open("POST", url, true);
-            http.setRequestHeader('Content-Type', 'application/json');
-            http.send(JSON.stringify(body));
-            http.onreadystatechange = function() {
-                if(this.status == 200) {
-                    console.log(http.responseText)
-                    // now send print page request and open in blanktab WORK AROUND REQUIRED
-                    var divtab1_2 = document.getElementById('divtab1_2')
-                    var replaceTable = '<button><a href=' + link + ' target="_blank"> Printable Doc Prepared</a></button>'
-                    divtab1_2.innerHTML = replaceTable;
-                }else {
-                    console.log("failed")
-                }
-            }
-        }
-        
         function archivedTable(respArray) {
 
           // build table from list of hawbs sent over

@@ -170,21 +170,21 @@ function storeHawb() {
     }
   }
 
-  // archive storage logic here
-  if(val.length > 1300) {
+ // archive storage logic here
+  if(val.length > 1050) {
     var i = 1;
-    for(var x = 1; x<5; x++) {
+    for(var x = 1; x<101; x++) {
       Logger.log(val[i]);
       buildPostBody(val[i], function(postBody) {
         //Send body to sql to store
         const url = "https://lgltrax.lglship.com/storehawb"
         sendFetchApp(url, postBody, function(result){
-          Logger.log(result)
+          //Logger.log(result)
           if(result){
-            Logger.log(i)
+            //Logger.log(i)
            //Delete row logic here 
            sheet.deleteRow(i+1);
-           i = i + 1;
+            //i = i + 1;
           }else {
             Logger.log("sqlerror");
           }
@@ -230,4 +230,3 @@ function sendFetchApp(url, body, callback) {
          callback(false)
      }
 }
-
