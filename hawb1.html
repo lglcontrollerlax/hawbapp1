@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <script>
-      //var hawbsgs = <?!= JSON.stringify(data) ?>;
+      var hawbsgs = <?!= JSON.stringify(data) ?>;
 
     </script>
     <style>
@@ -91,7 +91,7 @@
 
       <div>&copy Robert Lowell Brown 2018, 2019</div>
       <div id = "divtab1_2"></div>
-      <button  id="archivebutton" onClick= "storehawbs()" >Archive 500 Hawbs</button>
+      <button  id="archivebutton" onClick= "storehawbs()" >Archive 100 Hawbs</button>
       <br>
       <br>
       Search Archive for Older HAWB's   <br>
@@ -688,7 +688,7 @@
         function checkRowCount() {
          console.log(hawbsgs.hawb.length)
          var element = document.querySelector("#archivebutton");
-         if(hawbsgs.hawb.length > 1300) {
+         if(hawbsgs.hawb.length > 1050) {
          console.log("Visible archive button")
           //element.style.visibility = "visible"
           //element.class.remove("hide");
@@ -709,9 +709,8 @@
             var url = "https://lgltrax.lglship.com/searchstorehawb"
             sendPostArchive(url, input, function(respArray) {
              //Build table of results and display
-             //var archiveTable = archiveTable(respArray);
              console.log(respArray) 
-             archiveTable = archiveTable(respArray);
+             var archiveTable = archivedTable(respArray);
              var divtab1_2 = document.getElementById('divtab1_2')
              divtab1_2.innerHTML = archiveTable;
             });
@@ -739,14 +738,14 @@
             }
         }
         
-        function archiveTable(respArray) {
+
+        function archivedTable(respArray) {
 
           // build table from list of hawbs sent over
-          var hawbTable = "<table><tr><th>(select)HAWB</th><th>Print</th><th>Update</th></tr>"
+          var hawbTable = "<table><tr><th>(select)HAWB</th><th>Print</th></tr>"
           for(x=0;x<respArray.length;x++) {
-                    hawbTable += "<tr><td class='hawbrow fakelink' onClick= 'hawbSelected(this.innerText)'>" + respArray[x].D + "</td><td onClick= 'printPost(2 )'><a><i class="
-                    hawbTable += '"fakelink fas fa-print"></i></a></td><td  onClick= "hawbUpdate(' + "'" + respArray[x].D.toString().toUpperCase() + "'" + ')"><i class="fakelink fas fa-edit"></i>'
-                    hawbTable += "</td>"
+                    hawbTable += "<tr><td class='hawbrow'>" + respArray[x].D + "</td><td onClick= 'printArchived(" + JSON.stringify(respArray[x]) + ")'><a><i class="
+                    hawbTable += '"fakelink fas fa-print"></i></a></td>'
           }
           hawbTable += "</table>";
           return hawbTable;
