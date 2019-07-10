@@ -86,6 +86,8 @@
     </div>
     <div id="divtab1" class="display">Hawb:
       <input id= 'hawbIn' type="text" class= "smallInput" onkeyup="findHawb()" onfocus= "checkForUpdate()" >
+      <input type="date" id="test">
+      <button onclick= "filldate()" >TEst</button>
 
       <div>&copy Robert Lowell Brown 2018, 2019</div>
       <div id = "divtab1_2"></div>
@@ -748,6 +750,11 @@
           }
           hawbTable += "</table>";
           return hawbTable;
+        }
+
+        function filldate(inputid) {
+         var dateInput = document.querySelector(inputid);
+         dateInput.value = rtrnTodayStr();
         }
 
         

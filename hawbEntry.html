@@ -3,7 +3,7 @@
 <head>
    <meta charset="UTF-8">
     <script>
-      var hawbRowIndexgs = <?!= JSON.stringify(data) ?>;
+      // var hawbRowIndexgs = <?!= JSON.stringify(data) ?>;
       //console.log(hawbRowIndexgs)
     </script>
  <title>Hawb Entry</title>
@@ -46,7 +46,7 @@
     <div id="alert">
       <table>
         <tr><th>Select Alert Date</th><th>Alert Date</th><th>Alert Time</th><th>Ship Method</th></tr>
-        <tr><td><input type="date" id="alertdate" onchange="selectChange(this.value, 'alertdt')"></td><td><input type="text" id="alertdt" value=""></td></td><td><input type="text" id="alerttime" value=""></td>
+        <tr><td><input type="date" id="alertdate" onkeyup= "filldate(event, '#alertdate', '#alertdt', '#alerttime' )" onchange="selectChange(this.value, 'alertdt')"></td><td><input type="text" id="alertdt" value=""></td></td><td><input type="text" id="alerttime" value=""></td>
         <td><label for="shipmethod">Shipment Method</label><input type="text" name="shipmethod" id = 'shipmethod' value="Ground">
           <select name="shipmethodsel" id="shipmethodsel"  onchange="selectChange(this.options[this.selectedIndex].value, 'shipmethod')">
             <option value="Ground">Select one</option>
@@ -96,13 +96,13 @@
       <table id="pddate" >
           <tr><th id="pdth" class= "hide">Pickup Date Time</th><th id="ddth" class= "hide">Delivery Date Time</th></tr>
           <tr>
-        <div id="pdatediv" ><td id="pdtd" class= "hide"><input type="date" id="pdate" onchange="selectChange(this.value, 'pdate')">
+        <div id="pdatediv" ><td id="pdtd" class= "hide"><input type="date" id="pdate" onchange="selectChange(this.value, 'pdate')" onkeyup= "filldate(event, '#pdate', '#ponbydisp',null )" >
           <input type="radio" name="puonby"  value="By" onchange="selectChange(this.value, 'ponbydisp')">By
           <input type="radio" name="puonby"  value="On" onchange="selectChange(this.value, 'ponbydisp')">On<input type="text" id="ponbydisp" value="">
           <br><input class="times" type="text" id="pfrom" value = ""> TO <input type="text" id="pto" class="times" value = ""><br>
           Pickup Zip:<input type="text" id= "puzip" class="times" value = "" onKeyup= "fillAci(this.value, 'puaci', 'pucity')" >City:<input type="text" id= "pucity" class="times" value = "">ACI:<input type="text" id="puaci" value = ""readonly></td></div>
 
-          <div id="ddatediv" class= "hide"><td id="ddtd" class= "hide"><input type="date" id="ddate" onchange="selectChange(this.value, 'ddate')">
+          <div id="ddatediv" class= "hide"><td id="ddtd" class= "hide"><input type="date" id="ddate" onchange="selectChange(this.value, 'ddate')" onkeyup= "filldate(event, '#ddate', '#donbydisp',null )">
             <input type="radio" name="delonby"  value="By" onchange="selectChange(this.value, 'donbydisp')">By
             <input type="radio" name="delonby"  value="On" onchange="selectChange(this.value, 'donbydisp')">On<input type="text" id="donbydisp" value="">
             <br><input type="text" class="times" id="dfrom" value = ""> TO <input type="text" id="dto" class="times" value = ""><br>
@@ -404,6 +404,8 @@
             }
             http.send();
        }
+       
+
   </script>
     <!-- include the html files  which have js code or css  -->
     <?!= include('ajax'); ?>
