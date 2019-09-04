@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JavaScript Code Sample</title>
+        <script type="text/javascript" src="//js.live.net/v5.0/wl.js"></script>
+    </head>
+    <body>
+<div style="padding: 1em">
+
+
+        <div id="signin"></div>
+        <label id="info"></label>
+    <form>
+    <input id="file" name="file" type="file" />
+</form>
+    <button onclick="uploadFile()">Save file directly (calling WL.upload)</button>
+        <script>
+            WL.init({
+                client_id: 'Your_Client_ID',
+                redirect_uri: 'Your_Redirect_URL',
+                scope: "wl.signin",
+                response_type: "token"
+            });
+            WL.ui({
+                name: "signin",
+                element: "signin"
+            });
+            function uploadFile() {
+                WL.login({
+                    scope: "wl.skydrive_update"
+                }).then(
+                    function (response) {
+                        WL.upload({
+                            path: "me/skydrive/my_documents",
+                            element: "file",
+                            overwrite: "rename"
+                        }).then(
+                            function (response) {
+                                document.getElementById("info").innerText =
+                                    "File uploaded.";
+                            },
+                            function (responseFailed) {
+                                document.getElementById("info").innerText =
+                                    "Error uploading file: " + responseFailed.error.message;
+                            }
+                        );
+                    },
+                    function (responseFailed) {
+                        document.getElementById("info").innerText =
+                            "Error signing in: " + responseFailed.error.message;
+                    }
+                );
+            }
+<!-- https://lglshipcom-my.sharepoint.com/:f:/g/personal/ops_lglship_com/Ehjbi6iLzQdHs6uAv9Tj1-UBM1BPxgbisKkmzVMyofw-8g?e=Jr7nWc -->
+        </script>
+    </div>
+    </body>
+</html>
