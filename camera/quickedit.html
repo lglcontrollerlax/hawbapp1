@@ -1,0 +1,29 @@
+<ion-card *ngIf= "openEdit" >
+    <ion-row>
+        <ion-col>
+        <ion-item>
+            <ion-input name= 'L' [(ngmodel)] = 'L' value= 'L' (change)= 'calcDimWt' >
+        </ion-item>
+        </ion-col>
+                <ion-col>
+        <ion-item>
+            <ion-input name= 'W' [(ngmodel)] = 'W' value= 'W' (change)= 'calcDimWt' >
+        </ion-item>
+        </ion-col>
+                <ion-col>
+        <ion-item>
+            <ion-input name= 'H' [(ngmodel)] = 'H' value= 'H' (change)= 'calcDimWt' >
+        </ion-item>
+        </ion-col>
+                <ion-col>
+        <ion-item>
+            <ion-input name= 'wt' [(ngmodel)] = 'wt' value= 'wt' (change)= 'calcDimWt' >
+        </ion-item>
+        </ion-col>
+                <ion-col>
+        <ion-item>
+            <ion-input name= 'dimWt' [(ngmodel)] = 'dimWt' value= 'dimWt' >
+        </ion-item>
+        </ion-col>
+    </ion-row>
+</ion-card>
